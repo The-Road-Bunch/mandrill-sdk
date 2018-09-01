@@ -1,0 +1,25 @@
+{
+    "name": "theroadbunch/mandrill-sdk-wrapper",
+    "description": "A wrapper for the Mandrill API PHP SDK",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dan McAdams",
+            "email": "danmcadams@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RoadBunch\\Mandrill\\": "src/Mandrill"
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "psr/log": "^1.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4",
+        "monolog/monolog": "^1.23"
+    }
+}
