@@ -1,5 +1,5 @@
 {
-    "name": "theroadbunch/mandrill-sdk-wrapper",
+    "name": "danmcadams/mandrill-sdk-wrapper",
     "description": "A wrapper for the Mandrill API PHP SDK",
     "type": "library",
     "license": "MIT",
@@ -11,12 +11,18 @@
     ],
     "autoload": {
         "psr-4": {
-            "RoadBunch\\Mandrill\\": "src/Mandrill"
+            "DZMC\\Mandrill\\": "src/Mandrill"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DZMC\\Mandrill\\Tests\\": "tests"
         }
     },
     "require": {
         "php": "^7.0",
-        "psr/log": "^1.0.1"
+        "psr/log": "^1.0.1",
+        "mandrill/mandrill": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4",
