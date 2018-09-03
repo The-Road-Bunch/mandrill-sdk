@@ -88,11 +88,33 @@ class Message
     protected $isImportant = false;
 
     /**
-     * @return string
+     * whether or not to turn on open tracking for the message
+     *
+     * @var boolean $trackOpens
      */
-    public function getSubject(): string
+    protected $trackOpens = null;
+
+    /**
+     * whether or not to turn on click tracking for the message
+     *
+     * @var boolean $trackClicks
+     */
+    protected $trackClicks = null;
+
+    /**
+     * turn on tracking when an email is opened
+     */
+    public function trackOpens()
     {
-        return $this->subject;
+        $this->trackOpens = true;
+    }
+
+    /**
+     * turn on click tracking
+     */
+    public function trackClicks()
+    {
+        $this->trackClicks = true;
     }
 
     /**
@@ -104,27 +126,11 @@ class Message
     }
 
     /**
-     * @return string
-     */
-    public function getFromEmail(): string
-    {
-        return $this->fromEmail;
-    }
-
-    /**
      * @param string $fromEmail
      */
     public function setFromEmail(string $fromEmail)
     {
         $this->fromEmail = $fromEmail;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFromName(): string
-    {
-        return $this->fromName;
     }
 
     /**
@@ -136,14 +142,6 @@ class Message
     }
 
     /**
-     * @return string
-     */
-    public function getHtml(): string
-    {
-        return $this->html;
-    }
-
-    /**
      * @param string $html
      */
     public function setHtml(string $html)
@@ -152,27 +150,11 @@ class Message
     }
 
     /**
-     * @return string
-     */
-    public function getText(): string
-    {
-        return $this->text;
-    }
-
-    /**
      * @param string $text
      */
     public function setText(string $text)
     {
         $this->text = $text;
-    }
-
-    /**
-     * @return array
-     */
-    public function getRecipients(): array
-    {
-        return $this->to;
     }
 
     /**
@@ -215,14 +197,6 @@ class Message
     public function addHeader(string $header, $content)
     {
         $this->headers[$header] = $content;
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return $this->headers;
     }
 
     /**

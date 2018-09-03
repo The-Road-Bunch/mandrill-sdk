@@ -173,4 +173,20 @@ class MessageTest extends TestCase
         $this->assertArrayHasKey('Importance', $headers);
         $this->assertEquals('high', $headers['Importance']);
     }
+
+    public function testTrackOpens()
+    {
+        $this->assertNull($this->message->getTrackOpens());
+        $this->message->trackOpens();
+
+        $this->assertTrue($this->message->getTrackOpens());
+    }
+
+    public function testTrackClicks()
+    {
+        $this->assertNull($this->message->getTrackClicks());
+        $this->message->trackClicks();
+
+        $this->assertTrue($this->message->getTrackClicks());
+    }
 }
