@@ -79,11 +79,9 @@ class MessageTest extends TestCase
 
     public function testAddTo()
     {
-        $toName       = 'test user';
-        $toEmail      = 'test@example.com';
-        $toNameTwo    = 'test user two';
-        $toEmailTwo   = 'testtwo@example.com';
-        $toEmailThree = 'testthree@example.com';
+        $toName     = 'to test';
+        $toEmail    = 'test@example.com';
+        $toEmailTwo = 'testtwo@example.com';
 
         $expectedTo = [
             [
@@ -93,21 +91,15 @@ class MessageTest extends TestCase
             ],
             [
                 'email' => $toEmailTwo,
-                'name'  => $toNameTwo,
-                'type'  => 'to'
-            ],
-            [
-                'email' => $toEmailThree,
                 'name'  => '',
                 'type'  => 'to'
-            ]
+            ],
         ];
 
         $this->message->addTo($toEmail, $toName);
-        $this->message->addTo($toEmailTwo, $toNameTwo);
-        $this->message->addTo($toEmailThree);
+        $this->message->addTo($toEmailTwo);
 
-        $this->assertCount(3, $this->message->getRecipients());
+        $this->assertCount(2, $this->message->getRecipients());
         $this->assertEquals($expectedTo, $this->message->getRecipients());
     }
 
@@ -115,6 +107,44 @@ class MessageTest extends TestCase
     {
         $this->expectException(MandrillValidationException::class);
         $this->message->addTo('', 'dan');
+    }
+
+    public function testAddCc()
+    {
+        $ccName  = 'cc test';
+        $ccEmail = 'cctest@example.com';
+
+        $expectedRecipients = [
+            [
+                'email' => $ccEmail,
+                'name'  => $ccName,
+                'type'  => 'cc'
+            ]
+        ];
+
+        $this->message->addCc($ccEmail, $ccName);
+
+        $this->assertCount(1, $this->message->getRecipients());
+        $this->assertEquals($expectedRecipients, $this->message->getRecipients());
+    }
+
+    public function testAddBcc()
+    {
+        $ccName  = 'bcc test';
+        $ccEmail = 'bcctest@example.com';
+
+        $expectedRecipients = [
+            [
+                'email' => $ccEmail,
+                'name'  => $ccName,
+                'type'  => 'bcc'
+            ]
+        ];
+
+        $this->message->addBcc($ccEmail, $ccName);
+
+        $this->assertCount(1, $this->message->getRecipients());
+        $this->assertEquals($expectedRecipients, $this->message->getRecipients());
     }
 
     public function testAddHeader()

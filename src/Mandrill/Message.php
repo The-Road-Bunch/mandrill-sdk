@@ -179,21 +179,33 @@ class Message
      * @param string $email
      * @param string $name
      *
-     * @return $this
      * @throws MandrillValidationException
      */
     public function addTo(string $email, string $name = '')
     {
-        if (empty($email)) {
-            throw new MandrillValidationException('email cannot be empty');
-        }
+        $this->addRecipient($email, $name);
+    }
 
-        $this->to[] = [
-            'email' => $email,
-            'name'  => $name,
-            'type'  => 'to'
-        ];
-        return $this;
+    /**
+     * @param string $email
+     * @param string $name
+     *
+     * @throws MandrillValidationException
+     */
+    public function addCc(string $email, string $name = '')
+    {
+        $this->addRecipient($email, $name, 'cc');
+    }
+
+    /**
+     * @param string $email
+     * @param string $name
+     *
+     * @throws MandrillValidationException
+     */
+    public function addBcc(string $email, string $name = '')
+    {
+        $this->addRecipient($email, $name, 'bcc');
     }
 
     /**
@@ -213,6 +225,9 @@ class Message
         return $this->headers;
     }
 
+    /**
+     * set important headers (I'm pretty sure mandrill does this already, but it can't hurt)
+     */
     public function isImportant()
     {
         $this->isImportant = true;
@@ -220,5 +235,23 @@ class Message
         $this->addHeader('X-Priority', 1);
         $this->addHeader('X-MSMail-Priority', 'high');
         $this->addHeader('Importance', 'high');
+    }
+
+    /**
+     * add a recipient to the to array
+     *
+     * @param string $email
+     * @param string $name
+     * @param string $type to|cc|bcc
+     *
+     * @throws MandrillValidationException
+     */
+    protected function addRecipient(string $email, string $name = '', string $type = 'to')
+    {
+        if (empty($email)) {
+            throw new MandrillValidationException('email cannot be empty');
+        }
+
+        $this->to[] = ['email' => $email, 'name' => $name, 'type' => $type];
     }
 }
