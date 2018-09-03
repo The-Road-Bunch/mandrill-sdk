@@ -21,6 +21,7 @@
     },
     "require": {
         "php": "^7.0",
+        "ext-curl": "*",
         "psr/log": "^1.0.1",
         "mandrill/mandrill": "1.*"
     },
