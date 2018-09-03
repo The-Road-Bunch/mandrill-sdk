@@ -14,7 +14,16 @@ namespace DZMC\Mandrill\Tests;
 
 use DZMC\Mandrill\Message;
 
+/**
+ * Class MessageSpy
+ *
+ * @author  Dan McAdams
+ * @package DZMC\Mandrill\Tests
+ */
 class MessageSpy extends Message
 {
-
+    public function getIsImportant()
+    {
+        return $this->isImportant;
+    }
 }

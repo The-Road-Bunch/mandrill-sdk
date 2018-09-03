@@ -13,17 +13,22 @@ namespace DZMC\Mandrill\Tests;
 
 
 use DZMC\Mandrill\Exception\MandrillValidationException;
-use DZMC\Mandrill\Message;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class MessageTest
+ *
+ * @author  Dan McAdams
+ * @package DZMC\Mandrill\Tests
+ */
 class MessageTest extends TestCase
 {
-    /** @var Message */
+    /** @var MessageSpy */
     protected $message;
 
     protected function setUp()
     {
-        $this->message = new Message();
+        $this->message = new MessageSpy();
     }
 
     public function testSetHtml()
@@ -68,8 +73,8 @@ class MessageTest extends TestCase
 
     public function testToDefaultEmptyArray()
     {
-        $this->assertInternalType('array', $this->message->getTo());
-        $this->assertEmpty($this->message->getTo());
+        $this->assertInternalType('array', $this->message->getRecipients());
+        $this->assertEmpty($this->message->getRecipients());
     }
 
     public function testAddTo()
@@ -102,8 +107,8 @@ class MessageTest extends TestCase
         $this->message->addTo($toEmailTwo, $toNameTwo);
         $this->message->addTo($toEmailThree);
 
-        $this->assertCount(3, $this->message->getTo());
-        $this->assertEquals($expectedTo, $this->message->getTo());
+        $this->assertCount(3, $this->message->getRecipients());
+        $this->assertEquals($expectedTo, $this->message->getRecipients());
     }
 
     public function testAddToWithEmptyEmail()
@@ -127,6 +132,8 @@ class MessageTest extends TestCase
         $this->message->isImportant();
 
         $headers = $this->message->getHeaders();
+
+        $this->assertTrue($this->message->getIsImportant());
         $this->assertArrayHasKey('X-Priority', $headers);
         $this->assertEquals(1, $headers['X-Priority']);
 
