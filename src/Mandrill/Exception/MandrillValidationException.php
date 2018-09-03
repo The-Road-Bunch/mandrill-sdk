@@ -11,7 +11,12 @@
 
 namespace DZMC\Mandrill\Exception;
 
-
+/**
+ * Class MandrillValidationException
+ *
+ * @author  Dan McAdams
+ * @package DZMC\Mandrill\Exception
+ */
 class MandrillValidationException extends \Exception
 {
 }
