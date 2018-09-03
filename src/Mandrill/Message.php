@@ -14,28 +14,78 @@ namespace DZMC\Mandrill;
 
 use DZMC\Mandrill\Exception\MandrillValidationException;
 
+/**
+ * Class Message
+ *
+ * @author  Dan McAdams
+ * @package DZMC\Mandrill
+ */
 class Message
 {
-    /** @var string $html */
+    /**
+     * the full HTML content to be sent
+     *
+     * @var string $html
+     */
     protected $html = '';
 
-    /** @var string $text */
+    /**
+     * optional full text content to be sent
+     *
+     * @var string $text
+     */
     protected $text = '';
 
-    /** @var string $subject */
+    /**
+     * the message subject
+     *
+     * @var string $subject
+     */
     protected $subject = '';
 
-    /** @var string $fromEmail */
+    /**
+     * the sender email address
+     *
+     * @var string $fromEmail
+     */
     protected $fromEmail;
 
-    /** @var string $fromName */
-    protected $fromName;
+    /**
+     * optional from name to be used
+     *
+     * @var string $fromName
+     */
+    protected $fromName = '';
 
-    /** @var array $to */
+    /**
+     * an array of recipient's information
+     *
+     * [
+     *      [
+     *          'email' => 'example@example.com',
+     *          'name'  => 'Example Name',
+     *          'type'  => 'to|cc|bcc'
+     *      ]
+     * ]
+     *
+     * @var array $to
+     */
     protected $to = [];
 
-    /** @var array $headers */
+    /**
+     * optional extra headers to add to the message (most headers are allowed)
+     *
+     * @var array $headers
+     */
     protected $headers = [];
+
+    /**
+     * whether or not this message is important,
+     * and should be delivered ahead of non-important messages
+     *
+     * @var boolean $isImportant
+     */
+    protected $isImportant = false;
 
     /**
      * @return string
@@ -120,7 +170,7 @@ class Message
     /**
      * @return array
      */
-    public function getTo(): array
+    public function getRecipients(): array
     {
         return $this->to;
     }
@@ -146,11 +196,18 @@ class Message
         return $this;
     }
 
-    public function addHeader(string $header, string $content)
+    /**
+     * @param string $header
+     * @param        $content
+     */
+    public function addHeader(string $header, $content)
     {
         $this->headers[$header] = $content;
     }
 
+    /**
+     * @return array
+     */
     public function getHeaders()
     {
         return $this->headers;
@@ -158,5 +215,10 @@ class Message
 
     public function isImportant()
     {
+        $this->isImportant = true;
+
+        $this->addHeader('X-Priority', 1);
+        $this->addHeader('X-MSMail-Priority', 'high');
+        $this->addHeader('Importance', 'high');
     }
 }
