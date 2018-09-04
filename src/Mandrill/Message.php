@@ -81,6 +81,7 @@ class Message
     {
         $this->subject = $subject;
     }
+
     /**
      * @param string $fromEmail
      */
