@@ -33,4 +33,9 @@ trait HeaderTrait
     {
         $this->headers[$header] = $content;
     }
+
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
 }
