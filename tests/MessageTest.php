@@ -42,10 +42,9 @@ class MessageTest extends TestCase
      */
     public function testDefaults()
     {
-        $options = new MessageOptions();
-        $message = new Message($options);
+        $message = new Message();
 
-        $expected = array_merge([
+        $expected = [
             'html'       => '',
             'text'       => null,
             'subject'    => null,
@@ -53,9 +52,8 @@ class MessageTest extends TestCase
             'from_name'  => null,
             'to'         => [],
             'headers'    => [],
-        ], $options->toArray());
+        ];
 
-        dump($message->toArray());
         $this->assertEquals($expected, $message->toArray());
     }
 
