@@ -22,21 +22,6 @@ use DZMC\Mandrill\Message;
  */
 class MessageSpy extends Message
 {
-    public function getIsImportant()
-    {
-        return $this->isImportant;
-    }
-
-    public function getTrackOpens()
-    {
-        return $this->trackOpens;
-    }
-
-    public function getTrackClicks()
-    {
-        return $this->trackClicks;
-    }
-
     public function getSubject(): string
     {
         return $this->subject;
@@ -70,15 +55,5 @@ class MessageSpy extends Message
     public function getHeaders()
     {
         return $this->headers;
-    }
-
-    public function getAutoGenerateText()
-    {
-        return $this->autoText;
-    }
-
-    public function getAutoGenerateHtml()
-    {
-        return $this->autoHtml;
     }
 }
