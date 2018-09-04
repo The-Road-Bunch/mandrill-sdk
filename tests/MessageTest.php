@@ -13,6 +13,8 @@ namespace DZMC\Mandrill\Tests;
 
 
 use DZMC\Mandrill\Exception\MandrillValidationException;
+use DZMC\Mandrill\Message;
+use DZMC\Mandrill\MessageOptions;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,7 +42,10 @@ class MessageTest extends TestCase
      */
     public function testDefaults()
     {
-        $expected = [
+        $options = new MessageOptions();
+        $message = new Message($options);
+
+        $expected = array_merge([
             'html'       => '',
             'text'       => null,
             'subject'    => null,
@@ -48,8 +53,10 @@ class MessageTest extends TestCase
             'from_name'  => null,
             'to'         => [],
             'headers'    => [],
-        ];
-        $this->assertEquals($expected, $this->message->toArray());
+        ], $options->toArray());
+
+        dump($message->toArray());
+        $this->assertEquals($expected, $message->toArray());
     }
 
     public function testSetHtml()

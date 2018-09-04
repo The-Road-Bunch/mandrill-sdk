@@ -75,6 +75,19 @@ class Message
     protected $to = [];
 
     /**
+     * @var MessageOptions $options
+     */
+    protected $options;
+
+    public function __construct(MessageOptions $options = null)
+    {
+        if (null === $options) {
+            $options = new MessageOptions();
+        }
+        $this->options = $options;
+    }
+
+    /**
      * @param string $subject
      */
     public function setSubject(string $subject)
@@ -178,7 +191,7 @@ class Message
      */
     public function toArray()
     {
-        return [
+        return array_merge_recursive([
             'html'       => $this->html,
             'text'       => $this->text,
             'subject'    => $this->subject,
@@ -186,6 +199,6 @@ class Message
             'from_name'  => $this->fromName,
             'to'         => $this->to,
             'headers'    => $this->headers
-        ];
+        ], $this->options->toArray());
     }
 }
