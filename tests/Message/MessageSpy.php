@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests;
+namespace DZMC\Mandrill\Tests\Message;
 
 
-use DZMC\Mandrill\Message;
+use DZMC\Mandrill\Message\Message;
 
 /**
  * Class MessageSpy

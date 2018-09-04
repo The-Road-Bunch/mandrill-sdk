@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests;
+namespace DZMC\Mandrill\Tests\Message;
 
 
 use PHPUnit\Framework\TestCase;

@@ -9,12 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests;
+namespace DZMC\Mandrill\Tests\Message;
 
 
 use DZMC\Mandrill\Exception\MandrillValidationException;
-use DZMC\Mandrill\Message;
-use DZMC\Mandrill\MessageOptions;
+use DZMC\Mandrill\Message\Message;
 use PHPUnit\Framework\TestCase;
 
 /**

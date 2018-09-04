@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill;
+namespace DZMC\Mandrill\Message;
 
 
 use DZMC\Mandrill\Exception\MandrillValidationException;
+use DZMC\Mandrill\HeaderTrait;
 
 /**
  * Class Message
