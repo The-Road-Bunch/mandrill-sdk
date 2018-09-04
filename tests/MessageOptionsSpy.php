@@ -51,4 +51,44 @@ class MessageOptionsSpy extends MessageOptions
     {
         return $this->trackClicks;
     }
+
+    public function getInlineCss()
+    {
+        return $this->inlineCss;
+    }
+
+    public function getUrlStripQs()
+    {
+        return $this->urlStripQs;
+    }
+
+    public function getPreserveRecipients()
+    {
+        return $this->preserveRecipients;
+    }
+
+    public function getViewContentLink()
+    {
+        return $this->viewContentLink;
+    }
+
+    public function getBccAddress()
+    {
+        return $this->bccAddress;
+    }
+
+    public function getTrackingDomain()
+    {
+        return $this->trackingDomain;
+    }
+
+    public function getSigningDomain()
+    {
+        return $this->signingDomain;
+    }
+
+    public function getReturnPathDomain()
+    {
+        return $this->returnPathDomain;
+    }
 }

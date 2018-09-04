@@ -26,6 +26,33 @@ class MessageOptionsTest extends TestCase
         $this->options = new MessageOptionsSpy();
     }
 
+    /**
+     * Technically, this is two tests
+     *
+     * It tests defaults and the toArray method
+     */
+    public function testDefaults()
+    {
+        $expected = [
+            'important'           => false,
+            'track_opens'         => null,
+            'track_clicks'        => null,
+            'auto_text'           => null,
+            'auto_html'           => null,
+            'headers'             => [],
+            'inline_css'          => null,
+            'url_strip_qs'        => null,
+            'preserve_recipients' => null,
+            'view_content_link'   => null,
+            'bcc_address'         => null,
+            'tracking_domain'     => null,
+            'signing_domain'      => null,
+            'return_path_domain'  => null
+        ];
+
+        $this->assertEquals($expected, $this->options->toArray());
+    }
+
     public function testSetIsImportant()
     {
         $this->options->isImportant();
@@ -45,33 +72,81 @@ class MessageOptionsTest extends TestCase
 
     public function testTrackOpens()
     {
-        $this->assertNull($this->options->getTrackOpens());
         $this->options->trackOpens();
-
         $this->assertTrue($this->options->getTrackOpens());
     }
 
     public function testTrackClicks()
     {
-        $this->assertNull($this->options->getTrackClicks());
         $this->options->trackClicks();
-
         $this->assertTrue($this->options->getTrackClicks());
     }
 
     public function testAutoGenerateText()
     {
-        $this->assertNull($this->options->getAutoGenerateText());
         $this->options->autoGenerateText();
-
         $this->assertTrue($this->options->getAutoGenerateText());
     }
 
     public function testAutoGenerateHtml()
     {
-        $this->assertNull($this->options->getAutoGenerateHtml());
         $this->options->autoGenerateHtml();
-
         $this->assertTrue($this->options->getAutoGenerateHtml());
+    }
+
+    public function testInlineCss()
+    {
+        $this->options->inlineCss();
+        $this->assertTrue($this->options->getInlineCss());
+    }
+
+    public function testUrlStripQs()
+    {
+        $this->options->urlStripQs();
+        $this->assertTrue($this->options->getUrlStripQs());
+    }
+
+    public function testPreserveRecipients()
+    {
+        $this->options->preserveRecipients();
+        $this->assertTrue($this->options->getPreserveRecipients());
+    }
+
+    public function testDisableContentLink()
+    {
+        $this->options->disableContentLink();
+        $this->assertFalse($this->options->getViewContentLink());
+    }
+
+    public function testSetBccAddress()
+    {
+        $email = 'test@example.com';
+
+        $this->options->setBccAddress($email);
+        $this->assertEquals($email, $this->options->getBccAddress());
+    }
+
+    public function testSetTrackingDomain()
+    {
+        $domain = 'track.example.com';
+
+        $this->options->setTrackingDomain($domain);
+        $this->assertEquals($domain, $this->options->getTrackingDomain());
+    }
+
+    public function testSetSigningDomain()
+    {
+        $domain = 'sign.example.com';
+
+        $this->options->setSigningDomain($domain);
+        $this->assertEquals($domain, $this->options->getSigningDomain());
+    }
+
+    public function testSetReturnPathDomain()
+    {
+        $domain = 'return.example.com';
+
+        $this->options->setReturnPathDomain($domain);
+        $this->assertEquals($domain, $this->options->getReturnPathDomain());
     }
 }
