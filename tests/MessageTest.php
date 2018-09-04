@@ -23,7 +23,9 @@ use PHPUnit\Framework\TestCase;
  */
 class MessageTest extends TestCase
 {
-    /** @var MessageSpy */
+    /**
+     * @var MessageSpy $message
+     */
     protected $message;
 
     protected function setUp()
@@ -145,16 +147,6 @@ class MessageTest extends TestCase
 
         $this->assertCount(1, $this->message->getRecipients());
         $this->assertEquals($expectedRecipients, $this->message->getRecipients());
-    }
-
-    public function testAddHeader()
-    {
-        $this->message->addHeader('X-Force', 'Not the X-Men');
-
-        $headers = $this->message->getHeaders();
-
-        $this->assertArrayHasKey('X-Force', $headers);
-        $this->assertEquals('Not the X-Men', $headers['X-Force']);
     }
 
     public function testAddReplyTo()
