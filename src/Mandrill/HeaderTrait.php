@@ -26,6 +26,8 @@ trait HeaderTrait
     protected $headers = [];
 
     /**
+     * set an optional header to add to the message (most headers are allowed)
+     *
      * @param string $header
      * @param        $content
      */
@@ -34,6 +36,9 @@ trait HeaderTrait
         $this->headers[$header] = $content;
     }
 
+    /**
+     * @return array
+     */
     public function getHeaders()
     {
         return $this->headers;
