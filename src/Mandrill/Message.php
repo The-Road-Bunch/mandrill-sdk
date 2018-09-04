@@ -36,14 +36,14 @@ class Message
      *
      * @var string $text
      */
-    protected $text = '';
+    protected $text;
 
     /**
      * the message subject
      *
      * @var string $subject
      */
-    protected $subject = '';
+    protected $subject;
 
     /**
      * the sender email address
@@ -57,7 +57,7 @@ class Message
      *
      * @var string $fromName
      */
-    protected $fromName = '';
+    protected $fromName;
 
     /**
      * an array of recipient's information
@@ -171,5 +171,21 @@ class Message
         }
 
         $this->to[] = ['email' => $email, 'name' => $name, 'type' => $type];
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'html'       => $this->html,
+            'text'       => $this->text,
+            'subject'    => $this->subject,
+            'from_email' => $this->fromEmail,
+            'from_name'  => $this->fromName,
+            'to'         => $this->to,
+            'headers'    => $this->headers
+        ];
     }
 }

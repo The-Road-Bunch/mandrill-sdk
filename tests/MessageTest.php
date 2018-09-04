@@ -33,6 +33,25 @@ class MessageTest extends TestCase
         $this->message = new MessageSpy();
     }
 
+    /**
+     * Technically, this is two tests
+     *
+     * It tests defaults and the toArray method
+     */
+    public function testDefaults()
+    {
+        $expected = [
+            'html'       => '',
+            'text'       => null,
+            'subject'    => null,
+            'from_email' => null,
+            'from_name'  => null,
+            'to'         => [],
+            'headers'    => [],
+        ];
+        $this->assertEquals($expected, $this->message->toArray());
+    }
+
     public function testSetHtml()
     {
         $html = "<html><body>here is a body</body></html>";
