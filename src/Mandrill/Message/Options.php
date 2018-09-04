@@ -19,7 +19,7 @@ use DZMC\Mandrill\HeaderTrait;
  * @author  Dan McAdams
  * @package DZMC\Mandrill
  */
-class MessageOptions
+class Options
 {
     use HeaderTrait;
 

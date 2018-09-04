@@ -12,7 +12,7 @@
 namespace DZMC\Mandrill\Tests\Message;
 
 
-use DZMC\Mandrill\Message\MessageOptions;
+use DZMC\Mandrill\Message\Options;
 
 /**
  * Class MessageOptionsSpy
@@ -20,7 +20,7 @@ use DZMC\Mandrill\Message\MessageOptions;
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests
  */
-class MessageOptionsSpy extends MessageOptions
+class OptionsSpy extends Options
 {
     public function getAutoGenerateText()
     {

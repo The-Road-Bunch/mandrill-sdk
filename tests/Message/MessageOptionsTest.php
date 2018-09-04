@@ -17,13 +17,13 @@ use PHPUnit\Framework\TestCase;
 class MessageOptionsTest extends TestCase
 {
     /**
-     * @var MessageOptionsSpy $options
+     * @var OptionsSpy $options
      */
     protected $options;
 
     protected function setUp()
     {
-        $this->options = new MessageOptionsSpy();
+        $this->options = new OptionsSpy();
     }
 
     /**
