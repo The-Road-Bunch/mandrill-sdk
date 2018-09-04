@@ -34,12 +34,12 @@ class MessageOptionsTest extends TestCase
     public function testDefaults()
     {
         $expected = [
+            'headers'             => [],
             'important'           => false,
             'track_opens'         => null,
             'track_clicks'        => null,
             'auto_text'           => null,
             'auto_html'           => null,
-            'headers'             => [],
             'inline_css'          => null,
             'url_strip_qs'        => null,
             'preserve_recipients' => null,

@@ -34,28 +34,28 @@ class MessageOptions
      *
      * @var boolean $trackOpens
      */
-    protected $trackOpens = null;
+    protected $trackOpens;
 
     /**
      * whether or not to turn on click tracking for the message
      *
      * @var boolean $trackClicks
      */
-    protected $trackClicks = null;
+    protected $trackClicks;
 
     /**
      * whether or not to automatically generate a text part for messages that are not given text
      *
      * @var boolean $autoText
      */
-    protected $autoText = null;
+    protected $autoText;
 
     /**
      * whether or not to automatically generate an HTML part for messages that are not given HTML
      *
      * @var boolean $autoHtml
      */
-    protected $autoHtml = null;
+    protected $autoHtml;
 
     /**
      * -- only for HTML documents less than 256KB in size --
@@ -63,21 +63,21 @@ class MessageOptions
      *
      * @var boolean $inlineCss
      */
-    protected $inlineCss = null;
+    protected $inlineCss;
 
     /**
      * whether or not to strip the query string from URLs when aggregating tracked URL data
      *
      * @var boolean $urlStripQs
      */
-    protected $urlStripQs = null;
+    protected $urlStripQs;
 
     /**
      * whether or not to expose all recipients in to "To" header for each email
      *
      * @var boolean $preserveRecipients
      */
-    protected $preserveRecipients = null;
+    protected $preserveRecipients;
 
     /**
      * set to false to remove content logging for sensitive emails
@@ -85,35 +85,35 @@ class MessageOptions
      *
      * @var boolean $viewContentLink
      */
-    protected $viewContentLink = null;
+    protected $viewContentLink;
 
     /**
      * an optional address to receive an exact copy of each recipient's email
      *
      * @var string $bccAddress
      */
-    protected $bccAddress = null;
+    protected $bccAddress;
 
     /**
      * a custom domain to use for tracking opens and clicks instead of mandrillapp.com
      *
      * @var string $trackingDomain
      */
-    protected $trackingDomain = null;
+    protected $trackingDomain;
 
     /**
      * a custom domain to use for SPF/DKIM signing instead of mandrill (for "via" or "on behalf of" in email clients)
      *
      * @var string $signingDomain
      */
-    protected $signingDomain = null;
+    protected $signingDomain;
 
     /**
      * a custom domain to use for the messages's return-path
      *
      * @var string $returnPathDomain
      */
-    protected $returnPathDomain = null;
+    protected $returnPathDomain;
 
     /**
      * set important headers (I'm pretty sure mandrill does this already, but it can't hurt)
