@@ -157,6 +157,18 @@ class MessageTest extends TestCase
         $this->assertEquals('Not the X-Men', $headers['X-Force']);
     }
 
+    public function testAddReplyTo()
+    {
+        $email = "replyto@example.com";
+
+        $this->message->setReplyTo($email);
+
+        $headers = $this->message->getHeaders();
+
+        $this->assertArrayHasKey('Reply-To', $headers);
+        $this->assertEquals($email, $headers['Reply-To']);
+    }
+
     public function testSetIsImportant()
     {
         $this->message->isImportant();
@@ -188,5 +200,21 @@ class MessageTest extends TestCase
         $this->message->trackClicks();
 
         $this->assertTrue($this->message->getTrackClicks());
+    }
+
+    public function testAutoGenerateText()
+    {
+        $this->assertNull($this->message->getAutoGenerateText());
+        $this->message->autoGenerateText();
+
+        $this->assertTrue($this->message->getAutoGenerateText());
+    }
+
+    public function testAutoGenerateHtml()
+    {
+        $this->assertNull($this->message->getAutoGenerateHtml());
+        $this->message->autoGenerateHtml();
+
+        $this->assertTrue($this->message->getAutoGenerateHtml());
     }
 }

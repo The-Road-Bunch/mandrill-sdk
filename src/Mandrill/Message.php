@@ -102,6 +102,20 @@ class Message
     protected $trackClicks = null;
 
     /**
+     * whether or not to automatically generate a text part for messages that are not given text
+     *
+     * @var boolean $autoText
+     */
+    protected $autoText = null;
+
+    /**
+     * whether or not to automatically generate an HTML part for messages that are not given HTML
+     *
+     * @var boolean $autoHtml
+     */
+    protected $autoHtml = null;
+
+    /**
      * turn on tracking when an email is opened
      */
     public function trackOpens()
@@ -155,6 +169,30 @@ class Message
     public function setText(string $text)
     {
         $this->text = $text;
+    }
+
+    /**
+     * tell mandrill to automatically generate text parts for messages that are not given text
+     */
+    public function autoGenerateText()
+    {
+        $this->autoText = true;
+    }
+
+    /**
+     * tell mandrill to automatically generate text parts for messages that are not given text
+     */
+    public function autoGenerateHtml()
+    {
+        $this->autoHtml = true;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setReplyTo(string $email)
+    {
+        $this->addHeader('Reply-To', $email);
     }
 
     /**
