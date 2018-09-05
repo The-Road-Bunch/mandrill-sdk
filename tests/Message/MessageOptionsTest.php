@@ -12,18 +12,19 @@
 namespace DZMC\Mandrill\Tests\Message;
 
 
+use DZMC\Mandrill\Message\Options;
 use PHPUnit\Framework\TestCase;
 
 class MessageOptionsTest extends TestCase
 {
     /**
-     * @var OptionsSpy $options
+     * @var Options $options
      */
     protected $options;
 
     protected function setUp()
     {
-        $this->options = new OptionsSpy();
+        $this->options = new Options();
     }
 
     /**
@@ -57,9 +58,9 @@ class MessageOptionsTest extends TestCase
     {
         $this->options->isImportant();
 
-        $headers = $this->options->getHeaders();
+        $headers = $this->options->toArray()['headers'];
 
-        $this->assertTrue($this->options->getIsImportant());
+        $this->assertTrue($this->options->toArray()['important']);
         $this->assertArrayHasKey('X-Priority', $headers);
         $this->assertEquals(1, $headers['X-Priority']);
 
@@ -73,49 +74,49 @@ class MessageOptionsTest extends TestCase
     public function testTrackOpens()
     {
         $this->options->trackOpens();
-        $this->assertTrue($this->options->getTrackOpens());
+        $this->assertTrue($this->options->toArray()['track_opens']);
     }
 
     public function testTrackClicks()
     {
         $this->options->trackClicks();
-        $this->assertTrue($this->options->getTrackClicks());
+        $this->assertTrue($this->options->toArray()['track_clicks']);
     }
 
     public function testAutoGenerateText()
     {
         $this->options->autoGenerateText();
-        $this->assertTrue($this->options->getAutoGenerateText());
+        $this->assertTrue($this->options->toArray()['auto_text']);
     }
 
     public function testAutoGenerateHtml()
     {
         $this->options->autoGenerateHtml();
-        $this->assertTrue($this->options->getAutoGenerateHtml());
+        $this->assertTrue($this->options->toArray()['auto_html']);
     }
 
     public function testInlineCss()
     {
         $this->options->inlineCss();
-        $this->assertTrue($this->options->getInlineCss());
+        $this->assertTrue($this->options->toArray()['inline_css']);
     }
 
     public function testUrlStripQs()
     {
         $this->options->urlStripQs();
-        $this->assertTrue($this->options->getUrlStripQs());
+        $this->assertTrue($this->options->toArray()['url_strip_qs']);
     }
 
     public function testPreserveRecipients()
     {
         $this->options->preserveRecipients();
-        $this->assertTrue($this->options->getPreserveRecipients());
+        $this->assertTrue($this->options->toArray()['preserve_recipients']);
     }
 
     public function testDisableContentLink()
     {
         $this->options->disableContentLink();
-        $this->assertFalse($this->options->getViewContentLink());
+        $this->assertFalse($this->options->toArray()['view_content_link']);
     }
 
     public function testSetBccAddress()
@@ -123,7 +124,7 @@ class MessageOptionsTest extends TestCase
         $email = 'test@example.com';
 
         $this->options->setBccAddress($email);
-        $this->assertEquals($email, $this->options->getBccAddress());
+        $this->assertEquals($email, $this->options->toArray()['bcc_address']);
     }
 
     public function testSetTrackingDomain()
@@ -131,7 +132,7 @@ class MessageOptionsTest extends TestCase
         $domain = 'track.example.com';
 
         $this->options->setTrackingDomain($domain);
-        $this->assertEquals($domain, $this->options->getTrackingDomain());
+        $this->assertEquals($domain, $this->options->toArray()['tracking_domain']);
     }
 
     public function testSetSigningDomain()
@@ -139,7 +140,7 @@ class MessageOptionsTest extends TestCase
         $domain = 'sign.example.com';
 
         $this->options->setSigningDomain($domain);
-        $this->assertEquals($domain, $this->options->getSigningDomain());
+        $this->assertEquals($domain, $this->options->toArray()['signing_domain']);
     }
 
     public function testSetReturnPathDomain()
@@ -147,6 +148,6 @@ class MessageOptionsTest extends TestCase
         $domain = 'return.example.com';
 
         $this->options->setReturnPathDomain($domain);
-        $this->assertEquals($domain, $this->options->getReturnPathDomain());
+        $this->assertEquals($domain, $this->options->toArray()['return_path_domain']);
     }
 }

@@ -12,7 +12,7 @@
 namespace DZMC\Mandrill\Tests\Message;
 
 
-use DZMC\Mandrill\Exception\MandrillValidationException;
+use DZMC\Mandrill\Exception\ValidationException;
 use DZMC\Mandrill\Message\Message;
 use PHPUnit\Framework\TestCase;
 
@@ -25,13 +25,13 @@ use PHPUnit\Framework\TestCase;
 class MessageTest extends TestCase
 {
     /**
-     * @var MessageSpy $message
+     * @var Message $message
      */
     protected $message;
 
     protected function setUp()
     {
-        $this->message = new MessageSpy();
+        $this->message = new Message();
     }
 
     /**
@@ -61,7 +61,7 @@ class MessageTest extends TestCase
         $html = "<html><body>here is a body</body></html>";
 
         $this->message->setHtml($html);
-        $this->assertEquals($html, $this->message->getHtml());
+        $this->assertEquals($html, $this->message->toArray()['html']);
     }
 
     public function testSetText()
@@ -69,7 +69,7 @@ class MessageTest extends TestCase
         $text = 'test text';
 
         $this->message->setText($text);
-        $this->assertEquals($text, $this->message->getText());
+        $this->assertEquals($text, $this->message->toArray()['text']);
     }
 
     public function testSetSubject()
@@ -77,7 +77,7 @@ class MessageTest extends TestCase
         $subject = 'a subject';
 
         $this->message->setSubject($subject);
-        $this->assertEquals($subject, $this->message->getSubject());
+        $this->assertEquals($subject, $this->message->toArray()['subject']);
     }
 
     public function testSetFromEmail()
@@ -85,7 +85,7 @@ class MessageTest extends TestCase
         $emailAddress = 'test@example.com';
 
         $this->message->setFromEmail($emailAddress);
-        $this->assertEquals($emailAddress, $this->message->getFromEmail());
+        $this->assertEquals($emailAddress, $this->message->toArray()['from_email']);
     }
 
     public function testSetFromName()
@@ -93,13 +93,7 @@ class MessageTest extends TestCase
         $name = 'Dan';
 
         $this->message->setFromName($name);
-        $this->assertEquals($name, $this->message->getFromName());
-    }
-
-    public function testToDefaultEmptyArray()
-    {
-        $this->assertInternalType('array', $this->message->getRecipients());
-        $this->assertEmpty($this->message->getRecipients());
+        $this->assertEquals($name, $this->message->toArray()['from_name']);
     }
 
     public function testAddTo()
@@ -124,13 +118,13 @@ class MessageTest extends TestCase
         $this->message->addTo($toEmail, $toName);
         $this->message->addTo($toEmailTwo);
 
-        $this->assertCount(2, $this->message->getRecipients());
-        $this->assertEquals($expectedTo, $this->message->getRecipients());
+        $this->assertCount(2, $this->message->toArray()['to']);
+        $this->assertEquals($expectedTo, $this->message->toArray()['to']);
     }
 
     public function testAddToWithEmptyEmail()
     {
-        $this->expectException(MandrillValidationException::class);
+        $this->expectException(ValidationException::class);
         $this->message->addTo('', 'dan');
     }
 
@@ -149,8 +143,8 @@ class MessageTest extends TestCase
 
         $this->message->addCc($ccEmail, $ccName);
 
-        $this->assertCount(1, $this->message->getRecipients());
-        $this->assertEquals($expectedRecipients, $this->message->getRecipients());
+        $this->assertCount(1, $this->message->toArray()['to']);
+        $this->assertEquals($expectedRecipients, $this->message->toArray()['to']);
     }
 
     public function testAddBcc()
@@ -168,8 +162,8 @@ class MessageTest extends TestCase
 
         $this->message->addBcc($ccEmail, $ccName);
 
-        $this->assertCount(1, $this->message->getRecipients());
-        $this->assertEquals($expectedRecipients, $this->message->getRecipients());
+        $this->assertCount(1, $this->message->toArray()['to']);
+        $this->assertEquals($expectedRecipients, $this->message->toArray()['to']);
     }
 
     public function testAddReplyTo()
