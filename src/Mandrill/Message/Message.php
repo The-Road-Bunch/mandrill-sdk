@@ -12,7 +12,7 @@
 namespace DZMC\Mandrill\Message;
 
 
-use DZMC\Mandrill\Exception\MandrillValidationException;
+use DZMC\Mandrill\Exception\ValidationException;
 use DZMC\Mandrill\HeaderTrait;
 
 /**
@@ -127,7 +127,7 @@ class Message
      * @param string $email
      * @param string $name
      *
-     * @throws MandrillValidationException
+     * @throws ValidationException
      */
     public function addTo(string $email, string $name = '')
     {
@@ -138,7 +138,7 @@ class Message
      * @param string $email
      * @param string $name
      *
-     * @throws MandrillValidationException
+     * @throws ValidationException
      */
     public function addCc(string $email, string $name = '')
     {
@@ -149,7 +149,7 @@ class Message
      * @param string $email
      * @param string $name
      *
-     * @throws MandrillValidationException
+     * @throws ValidationException
      */
     public function addBcc(string $email, string $name = '')
     {
@@ -163,12 +163,12 @@ class Message
      * @param string $name
      * @param string $type to|cc|bcc
      *
-     * @throws MandrillValidationException
+     * @throws ValidationException
      */
     protected function addRecipient(string $email, string $name = '', string $type = 'to')
     {
         if (empty($email)) {
-            throw new MandrillValidationException('email cannot be empty');
+            throw new ValidationException('email cannot be empty');
         }
 
         $this->to[] = ['email' => $email, 'name' => $name, 'type' => $type];
