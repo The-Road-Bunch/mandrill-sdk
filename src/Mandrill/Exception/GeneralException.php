@@ -11,12 +11,15 @@
 
 namespace DZMC\Mandrill\Exception;
 
+
 /**
- * Class ValidationException
+ * Class GeneralError
+ *
+ * An unexpected error occurred processing the request. Mandrill developers will be notified.
  *
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Exception
  */
-class ValidationException extends \Exception
+class GeneralException extends \Mandrill_Error
 {
 }

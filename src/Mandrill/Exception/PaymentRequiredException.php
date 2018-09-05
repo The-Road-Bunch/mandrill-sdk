@@ -11,12 +11,13 @@
 
 namespace DZMC\Mandrill\Exception;
 
+
 /**
- * Class ValidationException
+ * Class PaymentRequiredException
  *
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Exception
  */
-class ValidationException extends \Exception
+class PaymentRequiredException extends \Exception
 {
 }
