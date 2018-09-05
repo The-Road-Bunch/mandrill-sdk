@@ -12,7 +12,7 @@
 namespace DZMC\Mandrill\Tests\Message;
 
 
-use DZMC\Mandrill\Message\Dispatcher;
+use DZMC\Mandrill\Message as Message;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,8 +23,9 @@ use PHPUnit\Framework\TestCase;
  */
 class MessageDispatcherTest extends TestCase
 {
-    public function testCreateDispatcher()
+    public function testSendMessageCreatesMergedArray()
     {
-        $dipatcher = new Dispatcher();
+        $mandrill   = new \Mandrill('test_api_key');
+        $dispatcher = new Message\Dispatcher($mandrill);
     }
 }

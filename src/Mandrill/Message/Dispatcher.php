@@ -20,5 +20,26 @@ namespace DZMC\Mandrill\Message;
  */
 class Dispatcher
 {
+    /**
+     * @var \Mandrill_Messages $service
+     */
+    protected $service;
 
+    /**
+     * Dispatcher constructor.
+     *
+     * @param \Mandrill_Messages $service
+     */
+    public function __construct(\Mandrill_Messages $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * @return \Mandrill_Messages
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
 }
