@@ -20,6 +20,6 @@ namespace DZMC\Mandrill\Exception;
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Exception
  */
-class GeneralException extends \Mandrill_Error
+class GeneralException extends \Exception
 {
 }
