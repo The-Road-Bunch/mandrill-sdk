@@ -66,8 +66,6 @@ class ResponseTest extends TestCase
 
         $response = new Response($mandrillResponse);
 
-        $this->assertEquals($mandrillResponse, $response->toArray());
-
         foreach ($mandrillResponse as $key => $item) {
             $this->assertEquals($item, $response->get($key));
         }
