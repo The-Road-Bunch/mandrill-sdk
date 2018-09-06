@@ -35,6 +35,10 @@ class Dispatcher
         $this->service = $service;
     }
 
+    /**
+     * @param Message      $message
+     * @param Options|null $options
+     */
     public function send(Message $message, Options $options = null)
     {
         $payload = $message->toArray();
