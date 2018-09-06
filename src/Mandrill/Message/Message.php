@@ -189,4 +189,12 @@ class Message
             'headers'    => $this->headers
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray());
+    }
 }
