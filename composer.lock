@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "05d88b0b53ebbf5419a35f65a54eff4a",
+    "content-hash": "e54fcd7965b1c0530134774a2da8f063",
     "packages": [
         {
             "name": "mandrill/mandrill",

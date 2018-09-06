@@ -1,6 +1,6 @@
 {
-    "name": "danmcadams/mandrill-sdk-wrapper",
-    "description": "A wrapper for the Mandrill API PHP SDK",
+    "name": "danmcadams/mandrill-sdk",
+    "description": "An OOP Implementation of the Mandrill PHP SDK",
     "type": "library",
     "license": "MIT",
     "authors": [
