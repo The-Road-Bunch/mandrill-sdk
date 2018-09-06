@@ -32,10 +32,11 @@ class MessagesSpy extends \Mandrill_Messages
      * @param null    $ip_pool
      * @param null    $send_at
      *
-     * @return array|void
+     * @return array
      */
-    public function send($message, $async = false, $ip_pool = NULL, $send_at = NULL)
+    public function send($message, $async = false, $ip_pool = NULL, $send_at = NULL): array
     {
         $this->providedMessage = $message;
+        return [];
     }
 }

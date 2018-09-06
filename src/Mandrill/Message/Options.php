@@ -19,7 +19,7 @@ use DZMC\Mandrill\HeaderTrait;
  * @author  Dan McAdams
  * @package DZMC\Mandrill
  */
-class Options
+class Options implements MessageOptionsInterface
 {
     use HeaderTrait;
 
@@ -236,7 +236,7 @@ class Options
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'important'           => $this->isImportant,
@@ -256,7 +256,7 @@ class Options
         ];
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return json_encode($this->toArray());
     }

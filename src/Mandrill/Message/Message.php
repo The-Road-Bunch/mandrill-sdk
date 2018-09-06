@@ -21,7 +21,7 @@ use DZMC\Mandrill\HeaderTrait;
  * @author  Dan McAdams
  * @package DZMC\Mandrill
  */
-class Message
+class Message implements MessageInterface
 {
     use HeaderTrait;
 
@@ -177,7 +177,7 @@ class Message
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'html'       => $this->html,
@@ -193,7 +193,7 @@ class Message
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return json_encode($this->toArray());
     }

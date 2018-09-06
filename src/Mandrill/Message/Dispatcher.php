@@ -18,7 +18,7 @@ namespace DZMC\Mandrill\Message;
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Message
  */
-class Dispatcher
+class Dispatcher implements MessageDispatcherInterface
 {
     /**
      * @var \Mandrill_Messages $service
@@ -38,8 +38,10 @@ class Dispatcher
     /**
      * @param Message      $message
      * @param Options|null $options
+     *
+     * @return array
      */
-    public function send(Message $message, Options $options = null)
+    public function send(Message $message, Options $options = null): array
     {
         $payload = $message->toArray();
 
@@ -48,13 +50,13 @@ class Dispatcher
         }
 
         /** @noinspection PhpParamsInspection */
-        $this->service->send($payload);
+        return $this->service->send($payload);
     }
 
     /**
      * @return \Mandrill_Messages
      */
-    public function getService()
+    public function getService(): \Mandrill_Messages
     {
         return $this->service;
     }
