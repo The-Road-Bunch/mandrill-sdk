@@ -13,6 +13,7 @@ namespace DZMC\Mandrill\Tests\Message;
 
 
 use DZMC\Mandrill\Message as Message;
+use DZMC\Mandrill\Response;
 use DZMC\Mandrill\Tests\Mock\MessagesSpy;
 use PHPUnit\Framework\TestCase;
 
@@ -56,5 +57,13 @@ class MessageDispatcherTest extends TestCase
 
         $this->dispatcher->send($message, $options);
         $this->assertEquals($expected, $this->messagesSpy->providedMessage);
+    }
+
+    public function testReturnsResponse()
+    {
+        $message  = new Message\Message();
+        $response = $this->dispatcher->send($message);
+
+        $this->assertInstanceOf(Response::class, $response);
     }
 }

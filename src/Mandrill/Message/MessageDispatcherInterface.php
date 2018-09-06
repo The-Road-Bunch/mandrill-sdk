@@ -10,6 +10,8 @@
 
 namespace DZMC\Mandrill\Message;
 
+use DZMC\Mandrill\Response;
+
 
 /**
  * Class Dispatcher
@@ -23,9 +25,9 @@ interface MessageDispatcherInterface
      * @param Message      $message
      * @param Options|null $options
      *
-     * @return array
+     * @return Response
      */
-    public function send(Message $message, Options $options = null): array;
+    public function send(Message $message, Options $options = null): Response;
 
     /**
      * @return \Mandrill_Messages

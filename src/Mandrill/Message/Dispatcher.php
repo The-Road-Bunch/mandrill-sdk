@@ -11,6 +11,8 @@
 
 namespace DZMC\Mandrill\Message;
 
+use DZMC\Mandrill\Response;
+
 
 /**
  * Class Dispatcher
@@ -39,9 +41,9 @@ class Dispatcher implements MessageDispatcherInterface
      * @param Message      $message
      * @param Options|null $options
      *
-     * @return array
+     * @return Response
      */
-    public function send(Message $message, Options $options = null): array
+    public function send(Message $message, Options $options = null): Response
     {
         $payload = $message->toArray();
 
@@ -50,7 +52,7 @@ class Dispatcher implements MessageDispatcherInterface
         }
 
         /** @noinspection PhpParamsInspection */
-        return $this->service->send($payload);
+        return new Response($this->service->send($payload));
     }
 
     /**
