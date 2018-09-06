@@ -26,16 +26,15 @@ class DispatcherFactoryTest extends TestCase
 {
     public function testCreateDispatcherFactory()
     {
-        $factory = new DispatcherFactory(new \Mandrill('test_api_key'));
+        $factory = new DispatcherFactory('test_api_key');
         $this->assertNotNull($factory);
     }
 
     public function testCreateMessageDispatcher()
     {
-        $factory    = new DispatcherFactory(new \Mandrill('test_api_key'));
+        $factory    = new DispatcherFactory('test_api_key');
         $dispatcher = $factory->createMessageDispatcher();
 
         $this->assertInstanceOf(Message\Dispatcher::class, $dispatcher);
-        $this->assertInstanceOf(\Mandrill_Messages::class, $dispatcher->getService());
     }
 }

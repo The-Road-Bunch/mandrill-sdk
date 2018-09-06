@@ -30,11 +30,12 @@ class DispatcherFactory
     /**
      * DispatcherFactory constructor.
      *
-     * @param \Mandrill $mandrill
+     * @param string $apiKey
+     * @throws \Mandrill_Error
      */
-    public function __construct(\Mandrill $mandrill)
+    public function __construct(string $apiKey = '')
     {
-        $this->service = $mandrill;
+        $this->service = new \Mandrill($apiKey);
     }
 
     /**
