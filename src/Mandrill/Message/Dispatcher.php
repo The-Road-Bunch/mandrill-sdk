@@ -35,6 +35,18 @@ class Dispatcher
         $this->service = $service;
     }
 
+    public function send(Message $message, Options $options = null)
+    {
+        $payload = $message->toArray();
+
+        if (null !== $options) {
+            $payload = array_merge_recursive($payload, $options->toArray());
+        }
+
+        /** @noinspection PhpParamsInspection */
+        $this->service->send($payload);
+    }
+
     /**
      * @return \Mandrill_Messages
      */

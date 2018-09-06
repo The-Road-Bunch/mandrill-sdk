@@ -13,6 +13,7 @@ namespace DZMC\Mandrill\Tests\Message;
 
 
 use DZMC\Mandrill\Message as Message;
+use DZMC\Mandrill\Tests\Mock\MessagesSpy;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,9 +24,37 @@ use PHPUnit\Framework\TestCase;
  */
 class MessageDispatcherTest extends TestCase
 {
-    public function testSendMessageCreatesMergedArray()
+    /**
+     * @var Message\Dispatcher $dispatcher
+     */
+    protected $dispatcher;
+
+    /**
+     *Ó @var MessagesSpy $messagesSpy
+     */
+    protected $messagesSpy;
+
+    protected function setUp()
     {
-        $mandrill   = new \Mandrill('test_api_key');
-        $dispatcher = new Message\Dispatcher($mandrill);
+        $this->messagesSpy = new MessagesSpy();
+        $this->dispatcher  = new Message\Dispatcher($this->messagesSpy);
+    }
+
+    public function testSendMessage()
+    {
+        $message = new Message\Message();
+        $this->dispatcher->send($message);
+
+        $this->assertEquals($message->toArray(), $this->messagesSpy->providedMessage);
+    }
+
+    public function testSendMessageWithOptions()
+    {
+        $message  = new Message\Message();
+        $options  = new Message\Options();
+        $expected = array_merge($message->toArray(), $options->toArray());
+
+        $this->dispatcher->send($message, $options);
+        $this->assertEquals($expected, $this->messagesSpy->providedMessage);
     }
 }
