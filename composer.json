@@ -22,6 +22,7 @@
     "require": {
         "php": "^7.0",
         "ext-curl": "*",
+        "ext-json": "*",
         "psr/log": "^1.0.1",
         "mandrill/mandrill": "1.*"
     },
