@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the danmcadams/mandrill-sdk-wrapper package.
+ * This file is part of the danmcadams/mandrill-sdk package.
  *
  * (c) Dan McAdams <danmcadams@gmail.com>
  *
