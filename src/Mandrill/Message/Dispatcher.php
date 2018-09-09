@@ -41,9 +41,9 @@ class Dispatcher implements MessageDispatcherInterface
      * @param Message      $message
      * @param Options|null $options
      *
-     * @return Response
+     * @return SendResponse[]
      */
-    public function send(Message $message, Options $options = null): Response
+    public function send(Message $message, Options $options = null): array
     {
         $payload = $message->toArray();
 
@@ -51,15 +51,20 @@ class Dispatcher implements MessageDispatcherInterface
             $payload = array_merge_recursive($payload, $options->toArray());
         }
 
-        /** @noinspection PhpParamsInspection */
-        return new Response($this->service->send($payload));
+        /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
+        return $this->buildResponse($this->service->send($payload));
     }
 
     /**
-     * @return \Mandrill_Messages
+     * @param $mandrillResponse
+     * @return array
      */
-    public function getService(): \Mandrill_Messages
+    private function buildResponse($mandrillResponse): array
     {
-        return $this->service;
+        $response = [];
+        foreach ($mandrillResponse as $result) {
+            $response[] = new SendResponse($result['_id'], $result['email'], $result['status'], $result['reject_reason']);
+        }
+        return $response;
     }
 }

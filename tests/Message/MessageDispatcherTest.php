@@ -12,9 +12,11 @@
 namespace DZMC\Mandrill\Tests\Message;
 
 
+use DZMC\Mandrill\Exception\EmptyResponseException;
 use DZMC\Mandrill\Message as Message;
 use DZMC\Mandrill\Response;
 use DZMC\Mandrill\Tests\Mock\MessagesSpy;
+use DZMC\Mandrill\Tests\Mock\NoResponseMessagesMock;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -59,11 +61,31 @@ class MessageDispatcherTest extends TestCase
         $this->assertEquals($expected, $this->messagesSpy->providedMessage);
     }
 
-    public function testReturnsResponse()
+    public function testNoResponse()
     {
-        $message  = new Message\Message();
-        $response = $this->dispatcher->send($message);
+        $messageService = new NoResponseMessagesMock();
+        $dispatcher     = new Message\Dispatcher($messageService);
 
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEmpty($dispatcher->send(new Message\Message()));
+    }
+
+    public function testReturnsSendResponse()
+    {
+        $expectedMessages = [
+            [
+                'email'         => 'test@example.com',
+                'status'        => 'sent',
+                'reject_reason' => null,
+                '_id'           => uniqid()
+            ]
+        ];
+        $messageService   = new MessagesSpy($expectedMessages);
+        $dispatcher       = new Message\Dispatcher($messageService);
+
+        $response = $dispatcher->send(new Message\Message());
+
+        $this->assertInternalType('array', $response);
+        $this->assertInstanceOf(Message\SendResponse::class, $response[0]);
+        $this->assertEquals($expectedMessages[0], $response[0]->toArray());
     }
 }

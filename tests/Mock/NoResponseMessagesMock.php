@@ -13,23 +13,13 @@ namespace DZMC\Mandrill\Tests\Mock;
 
 
 /**
- * Class MessagesMock
+ * Class NoResponseMessagesSpy
  *
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests\Mock
  */
-class MessagesSpy extends \Mandrill_Messages
+class NoResponseMessagesMock extends MessagesSpy
 {
-    public $providedMessage;
-
-    protected $expectedResponses;
-
-    public function __construct($expectedResponses = [])
-    {
-        // overwrite constructor, no Mandrill service required
-        $this->expectedResponses = $expectedResponses;
-    }
-
     /**
      * @param \struct $message
      * @param bool    $async
@@ -41,6 +31,6 @@ class MessagesSpy extends \Mandrill_Messages
     public function send($message, $async = false, $ip_pool = NULL, $send_at = NULL): array
     {
         $this->providedMessage = $message;
-        return $this->expectedResponses;
+        return [];
     }
 }

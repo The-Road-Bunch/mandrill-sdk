@@ -25,12 +25,7 @@ interface MessageDispatcherInterface
      * @param Message      $message
      * @param Options|null $options
      *
-     * @return Response
+     * @return SendResponse[]
      */
-    public function send(Message $message, Options $options = null): Response;
-
-    /**
-     * @return \Mandrill_Messages
-     */
-    public function getService(): \Mandrill_Messages;
+    public function send(Message $message, Options $options = null): array;
 }
