@@ -34,7 +34,7 @@ interface MessageDispatcherInterface
      * @param \DateTime    $sendAt
      * @param Options|null $options
      *
-     * @return array
+     * @return SendResponse[]
      */
     public function sendAt(Message $message, \DateTime $sendAt, Options $options = null): array;
 }
