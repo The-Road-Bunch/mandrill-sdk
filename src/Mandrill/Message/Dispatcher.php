@@ -56,25 +56,23 @@ class Dispatcher implements MessageDispatcherInterface
     public function sendAt(Message $message, \DateTime $sendAt, Options $options = null): array
     {
         $payload = $this->buildMessagePayload($message, $options);
-        return $this->sendMessage($payload, null, null, $sendAt);
+        return $this->sendMessage($payload, $sendAt);
     }
 
     /**
      * @param array          $payload
-     * @param bool|null      $async
-     * @param string|null    $ipPool
      * @param \DateTime|null $sendAt
      *
      * @return array
      */
-    private function sendMessage(array $payload, bool $async = null, string $ipPool = null, \DateTime $sendAt = null): array
+    private function sendMessage(array $payload, \DateTime $sendAt = null): array
     {
         if (null !== $sendAt) {
             $sendAt = $sendAt->format('Y-m-d H:i:s');
         }
 
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
-        return $this->buildResponse($this->service->send($payload, $async, $ipPool, $sendAt));
+        return $this->buildResponse($this->service->send($payload, $async = null, $ipPool = null, $sendAt));
     }
 
     /**
