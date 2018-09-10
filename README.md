@@ -11,7 +11,7 @@ _An OOP library for interfacing with Mandrill's API_
 2. [Installation](#installation)  
     a. [Bundles](#bundle-installation)
 2. [Basic Usage](#basic-usage)  
-    1. [Creating and Sending a Basic Email](#basic-email)
+    a. [Creating and Sending a Basic Email](#basic-email)
 
 ### <a name="installation">Installation</a>
 
