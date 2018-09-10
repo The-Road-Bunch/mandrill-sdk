@@ -22,6 +22,7 @@ class MessagesSpy extends \Mandrill_Messages
 {
     public $providedMessage;
     public $providedSendAt;
+    public $providedIpPool;
 
     protected $expectedResponses;
 
@@ -43,6 +44,7 @@ class MessagesSpy extends \Mandrill_Messages
     {
         $this->providedMessage = $message;
         $this->providedSendAt = $send_at;
+        $this->providedIpPool = $ip_pool;
 
         return $this->expectedResponses;
     }

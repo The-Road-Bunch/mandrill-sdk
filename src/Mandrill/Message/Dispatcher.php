@@ -25,6 +25,15 @@ class Dispatcher implements MessageDispatcherInterface
     protected $service;
 
     /**
+     * the name of the dedicated ip pool that should be used to send the message.
+     *      If you do not have any dedicated IPs, this parameter has no effect.
+     *      If you specify a pool that does not exist, your default pool will be used instead.
+     *
+     * @var string $ipPool
+     */
+    protected $ipPool;
+
+    /**
      * Dispatcher constructor.
      *
      * @param \Mandrill_Messages $service
@@ -32,6 +41,22 @@ class Dispatcher implements MessageDispatcherInterface
     public function __construct(\Mandrill_Messages $service)
     {
         $this->service = $service;
+    }
+
+    /**
+     * @param string $ipPool
+     */
+    public function setIpPool(string $ipPool)
+    {
+        $this->ipPool = $ipPool;
+    }
+
+    /**
+     *
+     */
+    public function clearIpPool()
+    {
+        $this->ipPool = null;
     }
 
     /**
@@ -72,7 +97,7 @@ class Dispatcher implements MessageDispatcherInterface
         }
 
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
-        return $this->buildResponse($this->service->send($payload, $async = null, $ipPool = null, $sendAt));
+        return $this->buildResponse($this->service->send($payload, $async = null, $this->ipPool, $sendAt));
     }
 
     /**
@@ -103,5 +128,5 @@ class Dispatcher implements MessageDispatcherInterface
             $payload = array_merge_recursive($payload, $options->toArray());
         }
         return $payload;
-}
+    }
 }
