@@ -11,9 +11,6 @@
 
 namespace DZMC\Mandrill\Message;
 
-use DZMC\Mandrill\Response;
-
-
 /**
  * Class Dispatcher
  *
