@@ -26,6 +26,7 @@ class MessagesSpy extends \Mandrill_Messages
 
     protected $expectedResponses;
 
+    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct($expectedResponses = [])
     {
         // overwrite constructor, no Mandrill service required
