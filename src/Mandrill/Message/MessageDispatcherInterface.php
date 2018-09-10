@@ -10,9 +10,6 @@
 
 namespace DZMC\Mandrill\Message;
 
-use DZMC\Mandrill\Response;
-
-
 /**
  * Class Dispatcher
  *
@@ -21,6 +18,18 @@ use DZMC\Mandrill\Response;
  */
 interface MessageDispatcherInterface
 {
+    /**
+     * @param string $ipPool
+     *
+     * @return mixed
+     */
+    public function setIpPool(string $ipPool);
+
+    /**
+     * @return mixed
+     */
+    public function clearIpPool();
+
     /**
      * @param Message      $message
      * @param Options|null $options
