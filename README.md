@@ -7,7 +7,7 @@ _An OOP library for interfacing with Mandrill's API_
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Contents
-1. Release Notes (TBD)
+1. [Release Notes](doc/release.md)
 2. [Installation](#installation)  
     a. [Bundles](#bundle-installation)
 2. [Basic Usage](#basic-usage)  
