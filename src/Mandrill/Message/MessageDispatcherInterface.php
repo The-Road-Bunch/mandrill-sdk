@@ -28,4 +28,13 @@ interface MessageDispatcherInterface
      * @return SendResponse[]
      */
     public function send(Message $message, Options $options = null): array;
+
+    /**
+     * @param Message      $message
+     * @param \DateTime    $sendAt
+     * @param Options|null $options
+     *
+     * @return array
+     */
+    public function sendAt(Message $message, \DateTime $sendAt, Options $options = null): array;
 }

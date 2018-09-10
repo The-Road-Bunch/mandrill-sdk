@@ -42,14 +42,39 @@ class Dispatcher implements MessageDispatcherInterface
      */
     public function send(Message $message, Options $options = null): array
     {
-        $payload = $message->toArray();
+        $payload = $this->buildMessagePayload($message, $options);
+        return $this->sendMessage($payload);
+    }
 
-        if (null !== $options) {
-            $payload = array_merge_recursive($payload, $options->toArray());
+    /**
+     * @param Message      $message
+     * @param \DateTime    $sendAt
+     * @param Options|null $options
+     *
+     * @return array
+     */
+    public function sendAt(Message $message, \DateTime $sendAt, Options $options = null): array
+    {
+        $payload = $this->buildMessagePayload($message, $options);
+        return $this->sendMessage($payload, null, null, $sendAt);
+    }
+
+    /**
+     * @param array          $payload
+     * @param bool|null      $async
+     * @param string|null    $ipPool
+     * @param \DateTime|null $sendAt
+     *
+     * @return array
+     */
+    private function sendMessage(array $payload, bool $async = null, string $ipPool = null, \DateTime $sendAt = null): array
+    {
+        if (null !== $sendAt) {
+            $sendAt = $sendAt->format('Y-m-d H:i:s');
         }
 
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
-        return $this->buildResponse($this->service->send($payload));
+        return $this->buildResponse($this->service->send($payload, $async, $ipPool, $sendAt));
     }
 
     /**
@@ -65,4 +90,20 @@ class Dispatcher implements MessageDispatcherInterface
         }
         return $response;
     }
+
+    /**
+     * @param Message $message
+     * @param Options $options
+     *
+     * @return array
+     */
+    private function buildMessagePayload(Message $message, Options $options = null): array
+    {
+        $payload = $message->toArray();
+
+        if (null !== $options) {
+            $payload = array_merge_recursive($payload, $options->toArray());
+        }
+        return $payload;
+}
 }

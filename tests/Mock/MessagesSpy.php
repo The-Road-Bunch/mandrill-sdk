@@ -21,6 +21,7 @@ namespace DZMC\Mandrill\Tests\Mock;
 class MessagesSpy extends \Mandrill_Messages
 {
     public $providedMessage;
+    public $providedSendAt;
 
     protected $expectedResponses;
 
@@ -41,6 +42,8 @@ class MessagesSpy extends \Mandrill_Messages
     public function send($message, $async = false, $ip_pool = NULL, $send_at = NULL): array
     {
         $this->providedMessage = $message;
+        $this->providedSendAt = $send_at;
+
         return $this->expectedResponses;
     }
 }

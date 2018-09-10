@@ -61,6 +61,20 @@ class MessageDispatcherTest extends TestCase
         $this->assertEquals($expected, $this->messagesSpy->providedMessage);
     }
 
+    public function testSendAt()
+    {
+        $message  = new Message\Message();
+        $options  = new Message\Options();
+        $expected = array_merge($message->toArray(), $options->toArray());
+
+        $sendDate          = new \DateTime();
+        $sendDateFormatted = $sendDate->format('Y-m-d H:i:s');
+
+        $this->dispatcher->sendAt($message, $sendDate, $options);
+        $this->assertEquals($expected, $this->messagesSpy->providedMessage);
+        $this->assertEquals($sendDateFormatted, $this->messagesSpy->providedSendAt);
+    }
+
     public function testNoResponse()
     {
         $messageService = new NoResponseMessagesMock();
