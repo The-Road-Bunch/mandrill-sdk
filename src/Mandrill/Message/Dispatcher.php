@@ -53,14 +53,15 @@ class Dispatcher implements MessageDispatcherInterface
     }
 
     /**
-     * @param $mandrillResponse
+     * @param $messagesResponse
+     *
      * @return array
      */
-    private function buildResponse($mandrillResponse): array
+    private function buildResponse(array $messagesResponse): array
     {
         $response = [];
-        foreach ($mandrillResponse as $result) {
-            $response[] = new SendResponse($result['_id'], $result['email'], $result['status'], $result['reject_reason']);
+        foreach ($messagesResponse as $mr) {
+            $response[] = new SendResponse($mr['_id'], $mr['email'], $mr['status'], $mr['reject_reason']);
         }
         return $response;
     }
