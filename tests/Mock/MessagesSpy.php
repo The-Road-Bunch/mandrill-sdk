@@ -23,6 +23,7 @@ class MessagesSpy extends \Mandrill_Messages
     public $providedMessage;
     public $providedSendAt;
     public $providedIpPool;
+    public $providedAsync;
 
     protected $expectedResponses;
 
@@ -41,11 +42,12 @@ class MessagesSpy extends \Mandrill_Messages
      *
      * @return array
      */
-    public function send($message, $async = false, $ip_pool = NULL, $send_at = NULL): array
+    public function send($message, $async = false, $ip_pool = null, $send_at = null): array
     {
         $this->providedMessage = $message;
-        $this->providedSendAt = $send_at;
-        $this->providedIpPool = $ip_pool;
+        $this->providedSendAt  = $send_at;
+        $this->providedIpPool  = $ip_pool;
+        $this->providedAsync   = $async;
 
         return $this->expectedResponses;
     }

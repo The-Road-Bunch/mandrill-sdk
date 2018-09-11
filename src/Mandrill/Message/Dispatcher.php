@@ -26,21 +26,34 @@ class Dispatcher implements MessageDispatcherInterface
 
     /**
      * the name of the dedicated ip pool that should be used to send the message.
-     *      If you do not have any dedicated IPs, this parameter has no effect.
-     *      If you specify a pool that does not exist, your default pool will be used instead.
+     *  If you do not have any dedicated IPs, this parameter has no effect.
+     *  If you specify a pool that does not exist, your default pool will be used instead.
      *
      * @var string $ipPool
      */
     protected $ipPool;
 
     /**
+     * enable a background sending mode that is optimized for bulk sending.
+     *  In async mode, messages/send will immediately return a status of "queued" for every recipient.
+     *  To handle rejections when sending in async mode, set up a webhook for the 'reject' event.
+     *  Defaults to false for messages with no more than 10 recipients;
+     *  messages with more than 10 recipients are always sent asynchronously, regardless of the value of async.
+     *
+     * @var bool $async
+     */
+    protected $async;
+
+    /**
      * Dispatcher constructor.
      *
      * @param \Mandrill_Messages $service
+     * @param bool|null          $async
      */
-    public function __construct(\Mandrill_Messages $service)
+    public function __construct(\Mandrill_Messages $service, bool $async = null)
     {
         $this->service = $service;
+        $this->async   = $async;
     }
 
     /**
@@ -97,7 +110,7 @@ class Dispatcher implements MessageDispatcherInterface
         }
 
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
-        return $this->buildResponse($this->service->send($payload, $async = null, $this->ipPool, $sendAt));
+        return $this->buildResponse($this->service->send($payload, $this->async, $this->ipPool, $sendAt));
     }
 
     /**
