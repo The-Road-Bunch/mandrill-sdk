@@ -37,4 +37,12 @@ class DispatcherFactoryTest extends TestCase
 
         $this->assertInstanceOf(Message\Dispatcher::class, $dispatcher);
     }
+
+    public function testCreateAsyncMessageDispatcher()
+    {
+        $factory = new DispatcherFactory('test_api_key');
+        $dispatcher = $factory->createAsyncMessageDispatcher();
+
+        $this->assertInstanceOf(Message\AsyncDispatcher::class, $dispatcher);
+    }
 }
