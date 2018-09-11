@@ -52,14 +52,6 @@ class MessageDispatcherTest extends TestCase
         $this->assertNull($this->messagesSpy->providedAsync);
     }
 
-    public function testSendAsync()
-    {
-        $this->dispatcher = new Message\Dispatcher($this->messagesSpy, $async = true);
-
-        $this->dispatcher->send(new Message\Message());
-        $this->assertEquals(true, $this->messagesSpy->providedAsync);
-    }
-
     public function testIpPool()
     {
         $message = new Message\Message();

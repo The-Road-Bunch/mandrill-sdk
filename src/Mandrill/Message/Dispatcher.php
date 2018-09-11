@@ -48,12 +48,10 @@ class Dispatcher implements MessageDispatcherInterface
      * Dispatcher constructor.
      *
      * @param \Mandrill_Messages $service
-     * @param bool|null          $async
      */
-    public function __construct(\Mandrill_Messages $service, bool $async = null)
+    public function __construct(\Mandrill_Messages $service)
     {
         $this->service = $service;
-        $this->async   = $async;
     }
 
     /**
