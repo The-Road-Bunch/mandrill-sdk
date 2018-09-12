@@ -78,21 +78,27 @@ class Dispatcher implements MessageDispatcherInterface
      */
     public function send(Message $message, Options $options = null): array
     {
-        $payload = $this->buildMessagePayload($message, $options);
-        return $this->sendMessage($payload);
+        return $this->sendMessage($this->buildMessagePayload($message, $options));
     }
 
     /**
      * @param Message      $message
-     * @param \DateTime    $sendAt
+     * @param \DateTime $sendAt
+     *      when this message should be sent as a UTC timestamp in YYYY-MM-DD HH:MM:SS format.
+     *          If you specify a time in the past, the message will be sent immediately.
+     *          An additional fee applies for scheduled email, and this feature is only available to accounts with a
+     *          positive balance.
+     *
      * @param Options|null $options
      *
      * @return SendResponse[]
      */
     public function sendAt(Message $message, \DateTime $sendAt, Options $options = null): array
     {
-        $payload = $this->buildMessagePayload($message, $options);
-        return $this->sendMessage($payload, $sendAt);
+        return $this->sendMessage(
+            $this->buildMessagePayload($message, $options),
+            $sendAt->format('Y-m-d H:i:s')
+        );
     }
 
     /**
@@ -101,12 +107,8 @@ class Dispatcher implements MessageDispatcherInterface
      *
      * @return array
      */
-    private function sendMessage(array $payload, \DateTime $sendAt = null): array
+    private function sendMessage(array $payload, $sendAt = null): array
     {
-        if (null !== $sendAt) {
-            $sendAt = $sendAt->format('Y-m-d H:i:s');
-        }
-
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
         return $this->buildResponse($this->service->send($payload, $this->async, $this->ipPool, $sendAt));
     }
@@ -120,7 +122,11 @@ class Dispatcher implements MessageDispatcherInterface
     {
         $response = [];
         foreach ($messagesResponse as $mr) {
-            $response[] = new SendResponse($mr['_id'], $mr['email'], $mr['status'], $mr['reject_reason']);
+            $response[] = new SendResponse(
+                $mr['_id'],
+                $mr['email'],
+                $mr['status'],
+                isset($mr['reject_reason']) ? $mr['reject_reason'] : null);
         }
         return $response;
     }

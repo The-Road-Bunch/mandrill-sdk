@@ -49,7 +49,6 @@ class MessageDispatcherTest extends TestCase
         $this->dispatcher->send($message);
 
         $this->assertEquals($message->toArray(), $this->messagesSpy->providedMessage);
-        $this->assertNull($this->messagesSpy->providedAsync);
     }
 
     public function testIpPool()
@@ -73,6 +72,16 @@ class MessageDispatcherTest extends TestCase
 
         $this->dispatcher->send($message, $options);
         $this->assertEquals($expected, $this->messagesSpy->providedMessage);
+    }
+
+    public function testSendAtNoRejectReasonResponse()
+    {
+        $message     = new Message\Message();
+        $messagesSpy = new MessagesSpy([['email' => 'email@email.com', '_id' => uniqid(), 'status' => 'queued']]);
+        $dispatcher  = new Message\Dispatcher($messagesSpy);
+
+        $dispatcher->send($message);
+        $this->assertEquals($message->toArray(), $messagesSpy->providedMessage);
     }
 
     public function testSendAt()
