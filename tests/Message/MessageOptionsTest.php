@@ -48,7 +48,8 @@ class MessageOptionsTest extends TestCase
             'bcc_address'         => null,
             'tracking_domain'     => null,
             'signing_domain'      => null,
-            'return_path_domain'  => null
+            'return_path_domain'  => null,
+            'metadata'            => []
         ];
 
         $this->assertEquals($expected, $this->options->toArray());
@@ -149,5 +150,13 @@ class MessageOptionsTest extends TestCase
 
         $this->options->setReturnPathDomain($domain);
         $this->assertEquals($domain, $this->options->toArray()['return_path_domain']);
+    }
+
+    public function testSetMetadata()
+    {
+        $metadata = ['key' => 'value'];
+
+        $this->options->setMetadata($metadata);
+        $this->assertEquals($metadata, $this->options->toArray()['metadata']);
     }
 }

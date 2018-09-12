@@ -118,6 +118,15 @@ class Options implements MessageOptionsInterface
     protected $returnPathDomain;
 
     /**
+     * metadata an associative array of user metadata.
+     *  Mandrill will store this metadata and make it available for retrieval.
+     *  In addition, you can select up to 10 metadata fields to index and make searchable using the Mandrill search api.
+     *
+     * @var array $metadata
+     */
+    protected $metadata = [];
+
+    /**
      * set important headers (I'm pretty sure mandrill does this already, but it can't hurt)
      */
     public function isImportant()
@@ -234,6 +243,14 @@ class Options implements MessageOptionsInterface
     }
 
     /**
+     * @param array $metadata
+     */
+    public function setMetadata(array $metadata)
+    {
+        $this->metadata = $metadata;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
@@ -252,7 +269,8 @@ class Options implements MessageOptionsInterface
             'bcc_address'         => $this->bccAddress,
             'tracking_domain'     => $this->trackingDomain,
             'signing_domain'      => $this->signingDomain,
-            'return_path_domain'  => $this->returnPathDomain
+            'return_path_domain'  => $this->returnPathDomain,
+            'metadata'            => $this->metadata,
         ];
     }
 
