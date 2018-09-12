@@ -49,6 +49,7 @@ class MessageDispatcherTest extends TestCase
         $this->dispatcher->send($message);
 
         $this->assertEquals($message->toArray(), $this->messagesSpy->providedMessage);
+        $this->assertNull($this->messagesSpy->providedAsync);
     }
 
     public function testIpPool()

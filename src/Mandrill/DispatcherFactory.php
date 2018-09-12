@@ -45,4 +45,12 @@ class DispatcherFactory
     {
         return new Message\Dispatcher($this->service->messages);
     }
+
+    /**
+     * @return Message\AsyncDispatcher
+     */
+    public function createAsyncMessageDispatcher()
+    {
+        return new Message\AsyncDispatcher($this->service->messages);
+    }
 }
