@@ -50,7 +50,7 @@ abstract class Recipient implements RecipientInterface, RecipientBuilderInterfac
      */
     protected $name;
 
-    public function __construct(string $email, string $name = '')
+    public function __construct(string $email, string $name = null)
     {
         if (empty($email)) {
             throw new ValidationException('email cannot be empty');
