@@ -55,6 +55,7 @@ class MessageTest extends TestCase
             'from_name'  => null,
             'to'         => [],
             'headers'    => [],
+            'merge_vars' => []
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -163,6 +164,54 @@ class MessageTest extends TestCase
         $this->message->addCc($ccEmail, $ccName);
 
         $this->assertEquals($expectedTo, $this->message->toArray()['to']);
+    }
+
+    public function testBuildMergeVarsArray()
+    {
+        $name       = 'merge_var_1';
+        $content    = 'merge content one';
+        $nameTwo    = 'merge_var_2';
+        $contentTwo = 'merge content two';
+        $email      = 'test@example.com';
+
+        $email2        = 'test2@example.com';
+        $nameEmail2    = 'merge_var_name_2';
+        $contentEmail2 = ' merge content email two';
+
+        $expected = [
+            [
+                'rcpt' => $email,
+                'vars' => [
+                    [
+                        'name'    => $name,
+                        'content' => $content
+                    ],
+                    [
+                        'name'    => $nameTwo,
+                        'content' => $contentTwo
+                    ]
+                ]
+            ],
+            [
+                'rcpt' => $email2,
+                'vars' => [
+                    [
+                        'name'    => $nameEmail2,
+                        'content' => $contentEmail2
+                    ]
+                ]
+            ]
+        ];
+        $this->message->addTo($email)
+                      ->addMergeVar($name, $content)
+                      ->addMergeVar($nameTwo, $contentTwo);
+
+        $this->message->addTo($email2)
+                      ->addMergeVar($nameEmail2, $contentEmail2);
+
+        $this->message->addCc('shouldnotshowup@example.com', 'dan');
+
+        $this->assertEquals($expected, $this->message->toArray()['merge_vars']);
     }
 
     public function testAddReplyTo()

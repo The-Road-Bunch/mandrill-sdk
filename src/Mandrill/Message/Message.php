@@ -163,7 +163,8 @@ class Message implements MessageInterface
             'from_email' => $this->fromEmail,
             'from_name'  => $this->fromName,
             'to'         => $this->extractRecipients(),
-            'headers'    => $this->headers
+            'headers'    => $this->headers,
+            'merge_vars' => $this->extractMergeVars()
         ];
     }
 
@@ -195,6 +196,20 @@ class Message implements MessageInterface
         $ret = [];
         foreach ($this->to as $recipient) {
             $ret[] = $recipient->getToArray();
+        }
+        return $ret;
+    }
+
+    private function extractMergeVars()
+    {
+        $ret = [];
+        foreach ($this->to as $recipient) {
+            if (!empty($mergeVars = $recipient->getMergeVars())) {
+                $ret[] = [
+                    'rcpt' => $recipient->getToArray()['email'],
+                    'vars' => $mergeVars
+                ];
+            }
         }
         return $ret;
     }
