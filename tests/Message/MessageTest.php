@@ -13,7 +13,11 @@ namespace DZMC\Mandrill\Tests\Message;
 
 
 use DZMC\Mandrill\Exception\ValidationException;
+use DZMC\Mandrill\Message\BccRecipient;
+use DZMC\Mandrill\Message\CcRecipient;
 use DZMC\Mandrill\Message\Message;
+use DZMC\Mandrill\Message\RecipientBuilderInterface;
+use DZMC\Mandrill\Message\ToRecipient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -98,9 +102,50 @@ class MessageTest extends TestCase
 
     public function testAddTo()
     {
-        $toName     = 'to test';
-        $toEmail    = 'test@example.com';
-        $toEmailTwo = 'testtwo@example.com';
+        $toName  = 'to test';
+        $toEmail = 'test@example.com';
+
+        $toRecipient = $this->message->addTo($toEmail, $toName);
+
+        $this->assertInstanceOf(RecipientBuilderInterface::class, $toRecipient);
+        $this->assertInstanceOf(ToRecipient::class, $toRecipient);
+
+        $this->assertCount(1, $this->message->toArray()['to']);
+    }
+
+    public function testAddCc()
+    {
+        $ccName  = 'cc test';
+        $ccEmail = 'test@example.com';
+
+        $ccRecipient = $this->message->addCc($ccEmail, $ccName);
+
+        $this->assertInstanceOf(RecipientBuilderInterface::class, $ccRecipient);
+        $this->assertInstanceOf(CcRecipient::class, $ccRecipient);
+
+        $this->assertCount(1, $this->message->toArray()['to']);
+    }
+
+    public function testAddBcc()
+    {
+        $bccName  = 'bcc test';
+        $bccEmail = 'test@example.com';
+
+        $bccRecipient = $this->message->addBcc($bccEmail, $bccName);
+
+        $this->assertInstanceOf(RecipientBuilderInterface::class, $bccRecipient);
+        $this->assertInstanceOf(BccRecipient::class, $bccRecipient);
+
+        $this->assertCount(1, $this->message->toArray()['to']);
+    }
+
+    public function testCreateToFromRecipients()
+    {
+        $toEmail = 'to@example.com';
+        $toName  = 'to email';
+        $ccEmail = 'cc@example.com';
+        $ccName  = 'cc name';
+
 
         $expectedTo = [
             [
@@ -109,61 +154,15 @@ class MessageTest extends TestCase
                 'type'  => 'to'
             ],
             [
-                'email' => $toEmailTwo,
-                'name'  => '',
-                'type'  => 'to'
-            ],
-        ];
-
-        $this->message->addTo($toEmail, $toName);
-        $this->message->addTo($toEmailTwo);
-
-        $this->assertCount(2, $this->message->toArray()['to']);
-        $this->assertEquals($expectedTo, $this->message->toArray()['to']);
-    }
-
-    public function testAddToWithEmptyEmail()
-    {
-        $this->expectException(ValidationException::class);
-        $this->message->addTo('', 'dan');
-    }
-
-    public function testAddCc()
-    {
-        $ccName  = 'cc test';
-        $ccEmail = 'cctest@example.com';
-
-        $expectedRecipients = [
-            [
                 'email' => $ccEmail,
                 'name'  => $ccName,
                 'type'  => 'cc'
             ]
         ];
-
+        $this->message->addTo($toEmail, $toName);
         $this->message->addCc($ccEmail, $ccName);
 
-        $this->assertCount(1, $this->message->toArray()['to']);
-        $this->assertEquals($expectedRecipients, $this->message->toArray()['to']);
-    }
-
-    public function testAddBcc()
-    {
-        $ccName  = 'bcc test';
-        $ccEmail = 'bcctest@example.com';
-
-        $expectedRecipients = [
-            [
-                'email' => $ccEmail,
-                'name'  => $ccName,
-                'type'  => 'bcc'
-            ]
-        ];
-
-        $this->message->addBcc($ccEmail, $ccName);
-
-        $this->assertCount(1, $this->message->toArray()['to']);
-        $this->assertEquals($expectedRecipients, $this->message->toArray()['to']);
+        $this->assertEquals($expectedTo, $this->message->toArray()['to']);
     }
 
     public function testAddReplyTo()
