@@ -41,4 +41,11 @@ interface RecipientInterface
      * @return array
      */
     public function getMetadata(): array;
+
+    /**
+     * the email address of the recipient
+     *
+     * @return string
+     */
+    public function getEmail(): string;
 }

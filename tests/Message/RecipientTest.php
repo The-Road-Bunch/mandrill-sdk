@@ -93,6 +93,14 @@ class RecipientTest extends TestCase
         $this->assertEquals($expectedVars, $this->recipient->getMergeVars());
     }
 
+    public function testGetEmail()
+    {
+        $email     = 'test@example.com';
+        $recipient = $this->createToRecipient($email);
+
+        $this->assertEquals($email, $recipient->getEmail());
+    }
+
     private function createToRecipient($email, $name = '')
     {
         return new class($email, $name) extends Recipient

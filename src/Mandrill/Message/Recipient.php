@@ -131,6 +131,16 @@ abstract class Recipient implements RecipientInterface, RecipientBuilderInterfac
     }
 
     /**
+     * the email address of the recipient
+     *
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
      * he header type to use for the recipient, defaults to "to" if not provided
      *
      * @return string to|cc|bcc
