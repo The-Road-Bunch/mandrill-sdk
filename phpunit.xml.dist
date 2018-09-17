@@ -4,4 +4,14 @@
             <directory suffix=".php">src/Mandrill</directory>
         </whitelist>
     </filter>
+    <php>
+        <!-- this is only necessary if running integration tests with a Mandrill test API key (disabled by default) -->
+        <env name="MANDRILL_APIKEY" value="your mandrill api key" />
+    </php>
+    <groups>
+        <exclude>
+            <!-- remove this line to enable integration tests, Mandrill API key required -->
+            <group>integration</group>
+        </exclude>
+    </groups>
 </phpunit>
