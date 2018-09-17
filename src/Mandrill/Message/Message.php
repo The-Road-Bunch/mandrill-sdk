@@ -157,14 +157,15 @@ class Message implements MessageInterface
     public function toArray(): array
     {
         return [
-            'html'       => $this->html,
-            'text'       => $this->text,
-            'subject'    => $this->subject,
-            'from_email' => $this->fromEmail,
-            'from_name'  => $this->fromName,
-            'to'         => $this->extractRecipients(),
-            'headers'    => $this->headers,
-            'merge_vars' => $this->extractMergeVars()
+            'html'               => $this->html,
+            'text'               => $this->text,
+            'subject'            => $this->subject,
+            'from_email'         => $this->fromEmail,
+            'from_name'          => $this->fromName,
+            'to'                 => $this->extractRecipients(),
+            'headers'            => $this->headers,
+            'merge_vars'         => $this->extractMergeVars(),
+            'recipient_metadata' => $this->extractMetadata()
         ];
     }
 
@@ -208,6 +209,20 @@ class Message implements MessageInterface
                 $ret[] = [
                     'rcpt' => $recipient->getToArray()['email'],
                     'vars' => $mergeVars
+                ];
+            }
+        }
+        return $ret;
+    }
+
+    private function extractMetadata()
+    {
+        $ret = [];
+        foreach ($this->to as $recipient) {
+            if (!empty($metadata = $recipient->getMetadata())) {
+                $ret[] = [
+                    'rcpt'   => $recipient->getToArray()['email'],
+                    'values' => $metadata
                 ];
             }
         }

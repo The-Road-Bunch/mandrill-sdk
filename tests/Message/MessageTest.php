@@ -48,14 +48,15 @@ class MessageTest extends TestCase
         $message = new Message();
 
         $expected = [
-            'html'       => '',
-            'text'       => null,
-            'subject'    => null,
-            'from_email' => null,
-            'from_name'  => null,
-            'to'         => [],
-            'headers'    => [],
-            'merge_vars' => []
+            'html'               => '',
+            'text'               => null,
+            'subject'            => null,
+            'from_email'         => null,
+            'from_name'          => null,
+            'to'                 => [],
+            'headers'            => [],
+            'merge_vars'         => [],
+            'recipient_metadata' => []
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -212,6 +213,30 @@ class MessageTest extends TestCase
         $this->message->addCc('shouldnotshowup@example.com', 'dan');
 
         $this->assertEquals($expected, $this->message->toArray()['merge_vars']);
+    }
+
+    public function testBuildMetadataArray()
+    {
+        $email = 'test@example.com';
+        $key1  = 'key1';
+        $val1  = 'val1';
+        $key2  = 'key2';
+        $val2  = 'val2';
+
+        $this->message->addTo($email)
+                      ->addMetadata($key1, $val1)
+                      ->addMetadata($key2, $val2);
+
+        $expected = [
+            [
+                'rcpt'   => $email,
+                'values' => [
+                    $key1 => $val1,
+                    $key2 => $val2
+                ]
+            ]
+        ];
+        $this->assertEquals($expected, $this->message->toArray()['recipient_metadata']);
     }
 
     public function testAddReplyTo()
