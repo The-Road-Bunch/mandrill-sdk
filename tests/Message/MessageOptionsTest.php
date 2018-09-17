@@ -162,6 +162,24 @@ class MessageOptionsTest extends TestCase
         $this->assertEquals($metadata, $this->options->toArray()['metadata']);
     }
 
+    public function testAddMetadata()
+    {
+        $key1   = 'key1';
+        $value1 = 'value1';
+        $key2   = 'key2';
+        $value2 = 'value2';
+
+        $expected = [
+            $key1 => $value1,
+            $key2 => $value2
+        ];
+
+        $this->options->addMetadata($key1, $value1);
+        $this->options->addMetadata($key2, $value2);
+
+        $this->assertEquals($expected, $this->options->toArray()['metadata']);
+    }
+
     public function testAddMergeVar()
     {
         $name    = 'merge_var';

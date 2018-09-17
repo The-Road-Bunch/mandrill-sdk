@@ -251,6 +251,9 @@ class Options implements MessageOptionsInterface
     }
 
     /**
+     * using this method will overwrite all global metadata
+     * but allows the user of this method to easily set metadata without a loop
+     *
      * @param array $metadata
      */
     public function setMetadata(array $metadata)
@@ -259,6 +262,19 @@ class Options implements MessageOptionsInterface
     }
 
     /**
+     * add a key to the metadata array
+     *
+     * @param $key
+     * @param $value
+     */
+    public function addMetadata($key, $value)
+    {
+        $this->metadata[$key] = $value;
+    }
+
+    /**
+     * add a global merge variable
+     *
      * @param string $name
      * @param        $content
      *
