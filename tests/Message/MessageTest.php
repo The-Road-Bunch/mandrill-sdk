@@ -86,19 +86,13 @@ class MessageTest extends TestCase
         $this->assertEquals($subject, $this->message->toArray()['subject']);
     }
 
-    public function testSetFromEmail()
+    public function testSetFrom()
     {
-        $emailAddress = 'test@example.com';
+        $email = 'from@example.com';
+        $name  = 'test name';
 
-        $this->message->setFromEmail($emailAddress);
-        $this->assertEquals($emailAddress, $this->message->toArray()['from_email']);
-    }
-
-    public function testSetFromName()
-    {
-        $name = 'Dan';
-
-        $this->message->setFromName($name);
+        $this->message->setFrom($email, $name);
+        $this->assertEquals($email, $this->message->toArray()['from_email']);
         $this->assertEquals($name, $this->message->toArray()['from_name']);
     }
 

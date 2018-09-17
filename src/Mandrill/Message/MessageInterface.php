@@ -27,14 +27,12 @@ interface MessageInterface
     public function setSubject(string $subject);
 
     /**
-     * @param string $fromEmail
+     * @param string      $email
+     * @param string|null $name
+     *
+     * @return mixed
      */
-    public function setFromEmail(string $fromEmail);
-
-    /**
-     * @param string $fromName
-     */
-    public function setFromName(string $fromName);
+    public function setFrom(string $email, string $name = null);
 
     /**
      * @param string $html

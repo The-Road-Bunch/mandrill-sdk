@@ -76,19 +76,13 @@ class Message implements MessageInterface
     }
 
     /**
-     * @param string $fromEmail
+     * @param string      $email
+     * @param string|null $name
      */
-    public function setFromEmail(string $fromEmail)
+    public function setFrom(string $email, string $name = null)
     {
-        $this->fromEmail = $fromEmail;
-    }
-
-    /**
-     * @param string $fromName
-     */
-    public function setFromName(string $fromName)
-    {
-        $this->fromName = $fromName;
+        $this->fromEmail = $email;
+        $this->fromName  = $name;
     }
 
     /**
