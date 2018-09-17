@@ -21,6 +21,9 @@ use PHPUnit\Framework\TestCase;
  *
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests
+ *
+ * @group unit
+ * @group dispatcher
  */
 class DispatcherFactoryTest extends TestCase
 {

@@ -16,6 +16,15 @@ use DZMC\Mandrill\Exception\ValidationException;
 use DZMC\Mandrill\Message\Options;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class MessageOptionsTest
+ *
+ * @author  Dan McAdams
+ * @package DZMC\Mandrill\Tests\Message
+ *
+ * @group unit
+ * @group message
+ */
 class MessageOptionsTest extends TestCase
 {
     /**

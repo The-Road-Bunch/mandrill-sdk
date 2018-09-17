@@ -25,6 +25,9 @@ use PHPUnit\Framework\TestCase;
  *
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests
+ *
+ * @group unit
+ * @group message
  */
 class MessageTest extends TestCase
 {

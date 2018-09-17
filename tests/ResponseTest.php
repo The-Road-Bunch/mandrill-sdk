@@ -21,6 +21,8 @@ use PHPUnit\Framework\TestCase;
  *
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests
+ *
+ * @group unit
  */
 class ResponseTest extends TestCase
 {
