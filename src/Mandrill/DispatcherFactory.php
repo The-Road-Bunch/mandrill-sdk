@@ -30,10 +30,13 @@ class DispatcherFactory
     /**
      * DispatcherFactory constructor.
      *
+     * If no api key is provided, Mandrill will check for an environment variable MANDRILL_APIKEY
+     * If those don't exits, Mandrill will look for ~/.mandrill.key or /etc/mandrill.key
+     *
      * @param string $apiKey
      * @throws \Mandrill_Error
      */
-    public function __construct(string $apiKey = '')
+    public function __construct(string $apiKey = null)
     {
         $this->service = new \Mandrill($apiKey);
     }
