@@ -61,17 +61,9 @@ class Message implements MessageInterface
     protected $fromName;
 
     /**
-     * an array of recipient's information
+     * a collection of RecipientInterface - useful for easily building metadata and merge vars for recipients
      *
-     * [
-     *      [
-     *          'email' => 'example@example.com',
-     *          'name'  => 'Example Name',
-     *          'type'  => 'to|cc|bcc'
-     *      ]
-     * ]
-     *
-     * @var array $to
+     * @var RecipientInterface[] $to
      */
     protected $to = [];
 
@@ -127,51 +119,36 @@ class Message implements MessageInterface
      * @param string $email
      * @param string $name
      *
+     * @return RecipientBuilderInterface
      * @throws ValidationException
      */
-    public function addTo(string $email, string $name = '')
+    public function addTo(string $email, string $name = ''): RecipientBuilderInterface
     {
-        $this->addRecipient($email, $name);
+        return $this->to[] = new ToRecipient($email, $name);
     }
 
     /**
      * @param string $email
      * @param string $name
      *
+     * @return RecipientBuilderInterface
      * @throws ValidationException
      */
-    public function addCc(string $email, string $name = '')
+    public function addCc(string $email, string $name = ''): RecipientBuilderInterface
     {
-        $this->addRecipient($email, $name, 'cc');
+        return $this->to[] = new CcRecipient($email, $name);
     }
 
     /**
      * @param string $email
      * @param string $name
      *
+     * @return RecipientBuilderInterface
      * @throws ValidationException
      */
-    public function addBcc(string $email, string $name = '')
+    public function addBcc(string $email, string $name = ''): RecipientBuilderInterface
     {
-        $this->addRecipient($email, $name, 'bcc');
-    }
-
-    /**
-     * add a recipient to the to array
-     *
-     * @param string $email
-     * @param string $name
-     * @param string $type to|cc|bcc
-     *
-     * @throws ValidationException
-     */
-    protected function addRecipient(string $email, string $name = '', string $type = 'to')
-    {
-        if (empty($email)) {
-            throw new ValidationException('email cannot be empty');
-        }
-
-        $this->to[] = ['email' => $email, 'name' => $name, 'type' => $type];
+        return $this->to[] = new BccRecipient($email, $name);
     }
 
     /**
@@ -180,21 +157,67 @@ class Message implements MessageInterface
     public function toArray(): array
     {
         return [
-            'html'       => $this->html,
-            'text'       => $this->text,
-            'subject'    => $this->subject,
-            'from_email' => $this->fromEmail,
-            'from_name'  => $this->fromName,
-            'to'         => $this->to,
-            'headers'    => $this->headers
+            'html'               => $this->html,
+            'text'               => $this->text,
+            'subject'            => $this->subject,
+            'from_email'         => $this->fromEmail,
+            'from_name'          => $this->fromName,
+            'to'                 => $this->extractRecipients(),
+            'headers'            => $this->headers,
+            'merge_vars'         => $this->extractMergeVars(),
+            'recipient_metadata' => $this->extractMetadata()
         ];
     }
 
     /**
-     * @return string
+     * build the 'to' array for sending off to Mandrill.
+     *
+     * an array of recipient's information
+     *
+     * [
+     *      [
+     *          'email' => 'example@example.com',
+     *          'name'  => 'Example Name',
+     *          'type'  => 'to|cc|bcc'
+     *      ]
+     * ]
+     *
+     * @return array
      */
-    public function __toString(): string
+    private function extractRecipients()
     {
-        return json_encode($this->toArray());
+        $ret = [];
+        foreach ($this->to as $recipient) {
+            $ret[] = $recipient->getToArray();
+        }
+        return $ret;
+    }
+
+    private function extractMergeVars()
+    {
+        $ret = [];
+        foreach ($this->to as $recipient) {
+            if (!empty($mergeVars = $recipient->getMergeVars())) {
+                $ret[] = [
+                    'rcpt' => $recipient->getToArray()['email'],
+                    'vars' => $mergeVars
+                ];
+            }
+        }
+        return $ret;
+    }
+
+    private function extractMetadata()
+    {
+        $ret = [];
+        foreach ($this->to as $recipient) {
+            if (!empty($metadata = $recipient->getMetadata())) {
+                $ret[] = [
+                    'rcpt'   => $recipient->getToArray()['email'],
+                    'values' => $metadata
+                ];
+            }
+        }
+        return $ret;
     }
 }

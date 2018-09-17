@@ -11,6 +11,7 @@
 
 namespace DZMC\Mandrill\Message;
 
+use DZMC\Mandrill\Exception\ValidationException;
 use DZMC\Mandrill\HeaderTrait;
 
 /**
@@ -125,6 +126,13 @@ class Options implements MessageOptionsInterface
      * @var array $metadata
      */
     protected $metadata = [];
+
+    /**
+     * global merge variables to use for all recipients. You can override these per recipient.
+     *
+     * @var array $globalMergeVars
+     */
+    protected $globalMergeVars = [];
 
     /**
      * set important headers (I'm pretty sure mandrill does this already, but it can't hurt)
@@ -243,11 +251,45 @@ class Options implements MessageOptionsInterface
     }
 
     /**
+     * using this method will overwrite all global metadata
+     * but allows the user of this method to easily set metadata without a loop
+     *
      * @param array $metadata
      */
     public function setMetadata(array $metadata)
     {
         $this->metadata = $metadata;
+    }
+
+    /**
+     * add a key to the metadata array
+     *
+     * @param $key
+     * @param $value
+     */
+    public function addMetadata($key, $value)
+    {
+        $this->metadata[$key] = $value;
+    }
+
+    /**
+     * add a global merge variable
+     *
+     * @param string $name
+     * @param        $content
+     *
+     * @throws ValidationException
+     */
+    public function addMergeVar(string $name, $content)
+    {
+        if (substr($name, 0, 1) === '_') {
+            throw new ValidationException('Merge variables may not start with an underscore');
+        }
+
+        $this->globalMergeVars[] = [
+            'name'    => $name,
+            'content' => $content
+        ];
     }
 
     /**
@@ -271,11 +313,7 @@ class Options implements MessageOptionsInterface
             'signing_domain'      => $this->signingDomain,
             'return_path_domain'  => $this->returnPathDomain,
             'metadata'            => $this->metadata,
+            'global_merge_vars'   => $this->globalMergeVars
         ];
-    }
-
-    public function __toString(): string
-    {
-        return json_encode($this->toArray());
     }
 }

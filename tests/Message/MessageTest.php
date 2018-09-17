@@ -13,7 +13,11 @@ namespace DZMC\Mandrill\Tests\Message;
 
 
 use DZMC\Mandrill\Exception\ValidationException;
+use DZMC\Mandrill\Message\BccRecipient;
+use DZMC\Mandrill\Message\CcRecipient;
 use DZMC\Mandrill\Message\Message;
+use DZMC\Mandrill\Message\RecipientBuilderInterface;
+use DZMC\Mandrill\Message\ToRecipient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,13 +48,15 @@ class MessageTest extends TestCase
         $message = new Message();
 
         $expected = [
-            'html'       => '',
-            'text'       => null,
-            'subject'    => null,
-            'from_email' => null,
-            'from_name'  => null,
-            'to'         => [],
-            'headers'    => [],
+            'html'               => '',
+            'text'               => null,
+            'subject'            => null,
+            'from_email'         => null,
+            'from_name'          => null,
+            'to'                 => [],
+            'headers'            => [],
+            'merge_vars'         => [],
+            'recipient_metadata' => []
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -98,9 +104,50 @@ class MessageTest extends TestCase
 
     public function testAddTo()
     {
-        $toName     = 'to test';
-        $toEmail    = 'test@example.com';
-        $toEmailTwo = 'testtwo@example.com';
+        $toName  = 'to test';
+        $toEmail = 'test@example.com';
+
+        $toRecipient = $this->message->addTo($toEmail, $toName);
+
+        $this->assertInstanceOf(RecipientBuilderInterface::class, $toRecipient);
+        $this->assertInstanceOf(ToRecipient::class, $toRecipient);
+
+        $this->assertCount(1, $this->message->toArray()['to']);
+    }
+
+    public function testAddCc()
+    {
+        $ccName  = 'cc test';
+        $ccEmail = 'test@example.com';
+
+        $ccRecipient = $this->message->addCc($ccEmail, $ccName);
+
+        $this->assertInstanceOf(RecipientBuilderInterface::class, $ccRecipient);
+        $this->assertInstanceOf(CcRecipient::class, $ccRecipient);
+
+        $this->assertCount(1, $this->message->toArray()['to']);
+    }
+
+    public function testAddBcc()
+    {
+        $bccName  = 'bcc test';
+        $bccEmail = 'test@example.com';
+
+        $bccRecipient = $this->message->addBcc($bccEmail, $bccName);
+
+        $this->assertInstanceOf(RecipientBuilderInterface::class, $bccRecipient);
+        $this->assertInstanceOf(BccRecipient::class, $bccRecipient);
+
+        $this->assertCount(1, $this->message->toArray()['to']);
+    }
+
+    public function testCreateToFromRecipients()
+    {
+        $toEmail = 'to@example.com';
+        $toName  = 'to email';
+        $ccEmail = 'cc@example.com';
+        $ccName  = 'cc name';
+
 
         $expectedTo = [
             [
@@ -109,61 +156,87 @@ class MessageTest extends TestCase
                 'type'  => 'to'
             ],
             [
-                'email' => $toEmailTwo,
-                'name'  => '',
-                'type'  => 'to'
-            ],
-        ];
-
-        $this->message->addTo($toEmail, $toName);
-        $this->message->addTo($toEmailTwo);
-
-        $this->assertCount(2, $this->message->toArray()['to']);
-        $this->assertEquals($expectedTo, $this->message->toArray()['to']);
-    }
-
-    public function testAddToWithEmptyEmail()
-    {
-        $this->expectException(ValidationException::class);
-        $this->message->addTo('', 'dan');
-    }
-
-    public function testAddCc()
-    {
-        $ccName  = 'cc test';
-        $ccEmail = 'cctest@example.com';
-
-        $expectedRecipients = [
-            [
                 'email' => $ccEmail,
                 'name'  => $ccName,
                 'type'  => 'cc'
             ]
         ];
-
+        $this->message->addTo($toEmail, $toName);
         $this->message->addCc($ccEmail, $ccName);
 
-        $this->assertCount(1, $this->message->toArray()['to']);
-        $this->assertEquals($expectedRecipients, $this->message->toArray()['to']);
+        $this->assertEquals($expectedTo, $this->message->toArray()['to']);
     }
 
-    public function testAddBcc()
+    public function testBuildMergeVarsArray()
     {
-        $ccName  = 'bcc test';
-        $ccEmail = 'bcctest@example.com';
+        $name       = 'merge_var_1';
+        $content    = 'merge content one';
+        $nameTwo    = 'merge_var_2';
+        $contentTwo = 'merge content two';
+        $email      = 'test@example.com';
 
-        $expectedRecipients = [
+        $email2        = 'test2@example.com';
+        $nameEmail2    = 'merge_var_name_2';
+        $contentEmail2 = ' merge content email two';
+
+        $expected = [
             [
-                'email' => $ccEmail,
-                'name'  => $ccName,
-                'type'  => 'bcc'
+                'rcpt' => $email,
+                'vars' => [
+                    [
+                        'name'    => $name,
+                        'content' => $content
+                    ],
+                    [
+                        'name'    => $nameTwo,
+                        'content' => $contentTwo
+                    ]
+                ]
+            ],
+            [
+                'rcpt' => $email2,
+                'vars' => [
+                    [
+                        'name'    => $nameEmail2,
+                        'content' => $contentEmail2
+                    ]
+                ]
             ]
         ];
+        $this->message->addTo($email)
+                      ->addMergeVar($name, $content)
+                      ->addMergeVar($nameTwo, $contentTwo);
 
-        $this->message->addBcc($ccEmail, $ccName);
+        $this->message->addTo($email2)
+                      ->addMergeVar($nameEmail2, $contentEmail2);
 
-        $this->assertCount(1, $this->message->toArray()['to']);
-        $this->assertEquals($expectedRecipients, $this->message->toArray()['to']);
+        $this->message->addCc('shouldnotshowup@example.com', 'dan');
+
+        $this->assertEquals($expected, $this->message->toArray()['merge_vars']);
+    }
+
+    public function testBuildMetadataArray()
+    {
+        $email = 'test@example.com';
+        $key1  = 'key1';
+        $val1  = 'val1';
+        $key2  = 'key2';
+        $val2  = 'val2';
+
+        $this->message->addTo($email)
+                      ->addMetadata($key1, $val1)
+                      ->addMetadata($key2, $val2);
+
+        $expected = [
+            [
+                'rcpt'   => $email,
+                'values' => [
+                    $key1 => $val1,
+                    $key2 => $val2
+                ]
+            ]
+        ];
+        $this->assertEquals($expected, $this->message->toArray()['recipient_metadata']);
     }
 
     public function testAddReplyTo()
