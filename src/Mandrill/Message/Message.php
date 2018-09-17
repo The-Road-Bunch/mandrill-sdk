@@ -170,14 +170,6 @@ class Message implements MessageInterface
     }
 
     /**
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
      * build the 'to' array for sending off to Mandrill.
      *
      * an array of recipient's information

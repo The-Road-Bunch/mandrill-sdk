@@ -12,6 +12,7 @@
 namespace DZMC\Mandrill\Tests\Message;
 
 
+use DZMC\Mandrill\Exception\ValidationException;
 use DZMC\Mandrill\Message\Options;
 use PHPUnit\Framework\TestCase;
 
@@ -49,7 +50,8 @@ class MessageOptionsTest extends TestCase
             'tracking_domain'     => null,
             'signing_domain'      => null,
             'return_path_domain'  => null,
-            'metadata'            => []
+            'metadata'            => [],
+            'global_merge_vars'   => []
         ];
 
         $this->assertEquals($expected, $this->options->toArray());
@@ -158,5 +160,27 @@ class MessageOptionsTest extends TestCase
 
         $this->options->setMetadata($metadata);
         $this->assertEquals($metadata, $this->options->toArray()['metadata']);
+    }
+
+    public function testAddMergeVar()
+    {
+        $name    = 'merge_var';
+        $content = 'merge content';
+
+        $expected = [
+            [
+                'name'    => $name,
+                'content' => $content
+            ]
+        ];
+
+        $this->options->addMergeVar($name, $content);
+        $this->assertEquals($expected, $this->options->toArray()['global_merge_vars']);
+    }
+
+    public function testAddMergeVarInvalidKey()
+    {
+        $this->expectException(ValidationException::class);
+        $this->options->addMergeVar('_invalid', 'this will fail');
     }
 }
