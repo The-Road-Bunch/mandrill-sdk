@@ -166,16 +166,6 @@ class Message implements MessageInterface
     /**
      * build the 'to' array for sending off to Mandrill.
      *
-     * an array of recipient's information
-     *
-     * [
-     *      [
-     *          'email' => 'example@example.com',
-     *          'name'  => 'Example Name',
-     *          'type'  => 'to|cc|bcc'
-     *      ]
-     * ]
-     *
      * @return array
      */
     private function extractRecipients()
