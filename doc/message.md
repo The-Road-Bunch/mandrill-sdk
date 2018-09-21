@@ -17,4 +17,4 @@ $message->setText('An email body');
 $message->addTo('dan@homeceu.com');
 ```
 
-_Note:_ `Message::addTo()`, `Message::addCc()`, and `Message::addBcc()` all return an instance of [RecipientBuilderInterface](src/Mandrill/Message/RecipientBuilderInterface.php)
+_Note:_ `Message::addTo()`, `Message::addCc()`, and `Message::addBcc()` all return an instance of [RecipientBuilderInterface](../src/Mandrill/Message/RecipientBuilderInterface.php)
