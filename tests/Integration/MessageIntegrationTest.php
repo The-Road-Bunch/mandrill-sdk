@@ -13,7 +13,6 @@ namespace DZMC\Mandrill\Tests\Integration;
 
 use DZMC\Mandrill\Message\Message;
 use DZMC\Mandrill\Message\MessageDispatcherInterface;
-use DZMC\Mandrill\Message\Options;
 use DZMC\Mandrill\Message\Status;
 
 
