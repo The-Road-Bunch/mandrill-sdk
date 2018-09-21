@@ -30,6 +30,8 @@ interface RecipientBuilderInterface
     public function addMergeVar(string $name, $content): RecipientBuilderInterface;
 
     /**
+     * per-recipient metadata that will override the global values specified in the metadata parameter.
+     *
      * @param $key
      * @param $value
      *
