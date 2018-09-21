@@ -7,6 +7,9 @@
     <php>
         <!-- uncomment the line below to run integration tests with a Mandrill test API key -->
         <!--<env name="MANDRILL_APIKEY" value="example_key" />-->
+
+        <!-- change this to a send address that can send from your Mandrill account -->
+        <const name="MANDRILL_FROM_EMAIL" value="example@example.com" />
     </php>
     <groups>
         <exclude>
