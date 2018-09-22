@@ -51,30 +51,32 @@ class MessageTest extends TestCase
         $message = new Message();
 
         $expected = [
-            'html'                => '',
-            'text'                => null,
-            'subject'             => null,
-            'from_email'          => null,
-            'from_name'           => null,
-            'to'                  => [],
-            'headers'             => [],
-            'merge_vars'          => [],
-            'recipient_metadata'  => [],
-            'important'           => false,
-            'track_opens'         => null,
-            'track_clicks'        => null,
-            'auto_text'           => null,
-            'auto_html'           => null,
-            'inline_css'          => null,
-            'url_strip_qs'        => null,
-            'preserve_recipients' => null,
-            'view_content_link'   => null,
-            'bcc_address'         => null,
-            'tracking_domain'     => null,
-            'signing_domain'      => null,
-            'return_path_domain'  => null,
-            'metadata'            => [],
-            'global_merge_vars'   => []
+            'html'                      => '',
+            'text'                      => null,
+            'subject'                   => null,
+            'from_email'                => null,
+            'from_name'                 => null,
+            'to'                        => [],
+            'headers'                   => [],
+            'merge_vars'                => [],
+            'recipient_metadata'        => [],
+            'important'                 => false,
+            'track_opens'               => null,
+            'track_clicks'              => null,
+            'auto_text'                 => null,
+            'auto_html'                 => null,
+            'inline_css'                => null,
+            'url_strip_qs'              => null,
+            'preserve_recipients'       => null,
+            'view_content_link'         => null,
+            'bcc_address'               => null,
+            'tracking_domain'           => null,
+            'signing_domain'            => null,
+            'return_path_domain'        => null,
+            'metadata'                  => [],
+            'global_merge_vars'         => [],
+            'google_analytics_domains'  => [],
+            'google_analytics_campaign' => null
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -261,5 +263,25 @@ class MessageTest extends TestCase
 
         $this->assertArrayHasKey('Reply-To', $headers);
         $this->assertEquals($email, $headers['Reply-To']);
+    }
+
+    public function testAddGoogleAnalyticsDomain()
+    {
+        $domainOne = 'example.com';
+        $domainTwo = 'test.example.com';
+
+        $this->message->addGoogleAnalyticsDomain($domainOne);
+        $this->message->addGoogleAnalyticsDomain($domainTwo);
+
+        $expected = [$domainOne, $domainTwo];
+        $this->assertEquals($expected, $this->message->toArray()['google_analytics_domains']);
+    }
+
+    public function testSetGoogleAnalyticsCampaign()
+    {
+        $campaign = 'messages.test@example.com';
+
+        $this->message->setGoogleAnalyticsCampaign($campaign);
+        $this->assertEquals($campaign, $this->message->toArray()['google_analytics_campaign']);
     }
 }

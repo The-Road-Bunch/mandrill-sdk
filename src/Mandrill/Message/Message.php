@@ -178,6 +178,22 @@ class Message implements MessageInterface, MessageOptionsInterface
     protected $to = [];
 
     /**
+     * an array of strings indicating for which any matching URLs
+     *  will automatically have Google Analytics parameters appended to their query string automatically.
+     *
+     * @var string[] $googleAnalyticsDomains
+     */
+    protected $googleAnalyticsDomains = [];
+
+    /**
+     * optional string indicating the value to set for the utm_campaign tracking parameter.
+     *  If this isn't provided the email's from address will be used instead.
+     *
+     * @var string $googleAnalyticsCampaign
+     */
+    protected $googleAnalyticsCampaign;
+
+    /**
      * @param string $subject
      */
     public function setSubject(string $subject)
@@ -414,35 +430,59 @@ class Message implements MessageInterface, MessageOptionsInterface
     }
 
     /**
+     * an array of strings indicating for which any matching URLs
+     *  will automatically have Google Analytics parameters appended to their query string automatically.
+     *
+     * @param string $domain
+     */
+    public function addGoogleAnalyticsDomain(string $domain)
+    {
+        $this->googleAnalyticsDomains[] = $domain;
+    }
+
+    /**
+     * optional string indicating the value to set for the utm_campaign tracking parameter.
+     *  If this isn't provided the email's from address will be used instead.
+     *
+     * @param string $campaign
+     */
+    public function setGoogleAnalyticsCampaign(string $campaign)
+    {
+        $this->googleAnalyticsCampaign = $campaign;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
     {
         return [
-            'html'                => $this->html,
-            'text'                => $this->text,
-            'subject'             => $this->subject,
-            'from_email'          => $this->fromEmail,
-            'from_name'           => $this->fromName,
-            'to'                  => $this->extractRecipients(),
-            'headers'             => $this->headers,
-            'merge_vars'          => $this->extractRecipientMergeVars(),
-            'recipient_metadata'  => $this->extractRecipientMetadata(),
-            'important'           => $this->isImportant,
-            'track_opens'         => $this->trackOpens,
-            'track_clicks'        => $this->trackClicks,
-            'auto_text'           => $this->autoText,
-            'auto_html'           => $this->autoHtml,
-            'inline_css'          => $this->inlineCss,
-            'url_strip_qs'        => $this->urlStripQs,
-            'preserve_recipients' => $this->preserveRecipients,
-            'view_content_link'   => $this->viewContentLink,
-            'bcc_address'         => $this->bccAddress,
-            'tracking_domain'     => $this->trackingDomain,
-            'signing_domain'      => $this->signingDomain,
-            'return_path_domain'  => $this->returnPathDomain,
-            'metadata'            => $this->metadata,
-            'global_merge_vars'   => $this->globalMergeVars
+            'html'                      => $this->html,
+            'text'                      => $this->text,
+            'subject'                   => $this->subject,
+            'from_email'                => $this->fromEmail,
+            'from_name'                 => $this->fromName,
+            'to'                        => $this->extractRecipients(),
+            'headers'                   => $this->headers,
+            'merge_vars'                => $this->extractRecipientMergeVars(),
+            'recipient_metadata'        => $this->extractRecipientMetadata(),
+            'important'                 => $this->isImportant,
+            'track_opens'               => $this->trackOpens,
+            'track_clicks'              => $this->trackClicks,
+            'auto_text'                 => $this->autoText,
+            'auto_html'                 => $this->autoHtml,
+            'inline_css'                => $this->inlineCss,
+            'url_strip_qs'              => $this->urlStripQs,
+            'preserve_recipients'       => $this->preserveRecipients,
+            'view_content_link'         => $this->viewContentLink,
+            'bcc_address'               => $this->bccAddress,
+            'tracking_domain'           => $this->trackingDomain,
+            'signing_domain'            => $this->signingDomain,
+            'return_path_domain'        => $this->returnPathDomain,
+            'metadata'                  => $this->metadata,
+            'global_merge_vars'         => $this->globalMergeVars,
+            'google_analytics_domains'  => $this->googleAnalyticsDomains,
+            'google_analytics_campaign' => $this->googleAnalyticsCampaign
         ];
     }
 
