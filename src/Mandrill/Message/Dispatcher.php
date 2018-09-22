@@ -96,12 +96,12 @@ class Dispatcher implements MessageDispatcherInterface
     }
 
     /**
-     * @param array          $payload
-     * @param \DateTime|null $sendAt
+     * @param array  $payload
+     * @param string $sendAt
      *
      * @return array
      */
-    private function sendMessage(array $payload, $sendAt = null): array
+    private function sendMessage(array $payload, string $sendAt = null): array
     {
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
         return $this->buildResponse($this->service->send($payload, $this->async, $this->ipPool, $sendAt));
