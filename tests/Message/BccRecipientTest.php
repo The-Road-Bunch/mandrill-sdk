@@ -37,11 +37,6 @@ class BccRecipientTest extends TestCase
 
         $this->assertInstanceOf(Recipient::class, $recipient);
 
-        $expectedTo = [
-            'email' => $email,
-            'name'  => null,
-            'type'  => 'bcc'
-        ];
-        $this->assertEquals($expectedTo, $recipient->getToArray());
+        $this->assertEquals('bcc', $recipient->getType());
     }
 }

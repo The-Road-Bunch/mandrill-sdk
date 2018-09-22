@@ -109,28 +109,6 @@ abstract class Recipient implements RecipientInterface, RecipientBuilderInterfac
     }
 
     /**
-     * an array of recipient's information
-     *
-     * [
-     *      [
-     *          'email' => 'example@example.com',
-     *          'name'  => 'Example Name',
-     *          'type'  => 'to|cc|bcc'
-     *      ]
-     * ]
-     *
-     * @return array
-     */
-    public function getToArray(): array
-    {
-        return [
-            'email' => $this->email,
-            'name'  => $this->name,
-            'type'  => $this->getType()
-        ];
-    }
-
-    /**
      * the email address of the recipient
      *
      * @return string

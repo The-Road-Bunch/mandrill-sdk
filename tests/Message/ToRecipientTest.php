@@ -36,12 +36,6 @@ class ToRecipientTest extends TestCase
         $recipient = new ToRecipient($email);
 
         $this->assertInstanceOf(Recipient::class, $recipient);
-
-        $expectedTo = [
-            'email' => $email,
-            'name'  => null,
-            'type'  => 'to'
-        ];
-        $this->assertEquals($expectedTo, $recipient->getToArray());
+        $this->assertEquals('to', $recipient->getType());
     }
 }

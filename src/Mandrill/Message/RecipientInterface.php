@@ -14,21 +14,6 @@ namespace DZMC\Mandrill\Message;
 interface RecipientInterface
 {
     /**
-     * an array of recipient's information
-     *
-     * [
-     *      [
-     *          'email' => 'example@example.com',
-     *          'name'  => 'Example Name',
-     *          'type'  => 'to|cc|bcc'
-     *      ]
-     * ]
-     *
-     * @return array
-     */
-    public function getToArray(): array;
-
-    /**
      * per-recipient merge variables, which override global merge variables with the same name.
      *
      * @return array

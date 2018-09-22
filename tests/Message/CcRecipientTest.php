@@ -36,12 +36,6 @@ class CcRecipientTest extends TestCase
         $recipient = new CcRecipient($email);
 
         $this->assertInstanceOf(Recipient::class, $recipient);
-
-        $expectedTo = [
-            'email' => $email,
-            'name'  => null,
-            'type'  => 'cc'
-        ];
-        $this->assertEquals($expectedTo, $recipient->getToArray());
+        $this->assertEquals('cc', $recipient->getType());
     }
 }

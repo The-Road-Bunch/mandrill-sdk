@@ -38,23 +38,6 @@ class RecipientTest extends TestCase
         $this->recipient = $this->createToRecipient('test@example.com', 'Test Name');
     }
 
-    public function testGetToArray()
-    {
-        $email = 'test@example.com';
-        $name  = 'Dan McAdams';
-
-        $recipient = $this->createToRecipient($email, $name);
-
-        $this->assertEquals(
-            [
-                'email' => $email,
-                'name'  => $name,
-                'type'  => 'to'
-            ],
-            $recipient->getToArray()
-        );
-    }
-
     public function testGetName()
     {
         $name      = 'tester';

@@ -455,7 +455,11 @@ class Message implements MessageInterface, MessageOptionsInterface
     {
         $ret = [];
         foreach ($this->to as $recipient) {
-            $ret[] = $recipient->getToArray();
+            $ret[] = [
+                'email' => $recipient->getEmail(),
+                'name'  => $recipient->getName(),
+                'type'  => $recipient->getType()
+            ];
         }
         return $ret;
     }
@@ -466,7 +470,7 @@ class Message implements MessageInterface, MessageOptionsInterface
         foreach ($this->to as $recipient) {
             if (!empty($mergeVars = $recipient->getMergeVars())) {
                 $ret[] = [
-                    'rcpt' => $recipient->getToArray()['email'],
+                    'rcpt' => $recipient->getEmail(),
                     'vars' => $mergeVars
                 ];
             }
@@ -480,7 +484,7 @@ class Message implements MessageInterface, MessageOptionsInterface
         foreach ($this->to as $recipient) {
             if (!empty($metadata = $recipient->getMetadata())) {
                 $ret[] = [
-                    'rcpt'   => $recipient->getToArray()['email'],
+                    'rcpt'   => $recipient->getEmail(),
                     'values' => $metadata
                 ];
             }
