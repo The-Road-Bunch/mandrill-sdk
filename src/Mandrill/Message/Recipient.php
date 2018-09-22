@@ -139,11 +139,4 @@ abstract class Recipient implements RecipientInterface, RecipientBuilderInterfac
     {
         return $this->email;
     }
-
-    /**
-     * he header type to use for the recipient, defaults to "to" if not provided
-     *
-     * @return string to|cc|bcc
-     */
-    abstract protected function getType(): string;
 }
