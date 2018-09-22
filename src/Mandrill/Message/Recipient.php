@@ -139,4 +139,14 @@ abstract class Recipient implements RecipientInterface, RecipientBuilderInterfac
     {
         return $this->email;
     }
+
+    /**
+     * the optional display name to use for the recipient
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

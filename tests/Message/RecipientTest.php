@@ -22,9 +22,9 @@ use PHPUnit\Framework\TestCase;
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests\Message
  *
- * @group unit
- * @group message
- * @group recipient
+ * @group   unit
+ * @group   message
+ * @group   recipient
  */
 class RecipientTest extends TestCase
 {
@@ -53,6 +53,14 @@ class RecipientTest extends TestCase
             ],
             $recipient->getToArray()
         );
+    }
+
+    public function testGetName()
+    {
+        $name      = 'tester';
+        $recipient = $this->createToRecipient('test@example.com', $name);
+
+        $this->assertEquals($name, $recipient->getName());
     }
 
     public function testCreateWithEmptyEmail()
@@ -109,7 +117,7 @@ class RecipientTest extends TestCase
     {
         return new class($email, $name) extends Recipient
         {
-            protected function getType(): string
+            public function getType(): string
             {
                 return 'to';
             }

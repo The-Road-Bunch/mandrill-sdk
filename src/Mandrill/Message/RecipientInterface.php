@@ -50,6 +50,13 @@ interface RecipientInterface
     public function getEmail(): string;
 
     /**
+     * the optional display name to use for the recipient
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
      * the header type to use for the recipient, defaults to "to" if not provided
      *
      * @return string to|cc|bcc
