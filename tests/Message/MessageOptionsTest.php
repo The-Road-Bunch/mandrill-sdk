@@ -13,7 +13,7 @@ namespace DZMC\Mandrill\Tests\Message;
 
 
 use DZMC\Mandrill\Exception\ValidationException;
-use DZMC\Mandrill\Message\Options;
+use DZMC\Mandrill\Message\Message;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,51 +28,22 @@ use PHPUnit\Framework\TestCase;
 class MessageOptionsTest extends TestCase
 {
     /**
-     * @var Options $options
+     * @var Message $message
      */
-    protected $options;
+    protected $message;
 
     protected function setUp()
     {
-        $this->options = new Options();
-    }
-
-    /**
-     * Technically, this is two tests
-     *
-     * It tests defaults and the toArray method
-     */
-    public function testDefaults()
-    {
-        $expected = [
-            'headers'             => [],
-            'important'           => false,
-            'track_opens'         => null,
-            'track_clicks'        => null,
-            'auto_text'           => null,
-            'auto_html'           => null,
-            'inline_css'          => null,
-            'url_strip_qs'        => null,
-            'preserve_recipients' => null,
-            'view_content_link'   => null,
-            'bcc_address'         => null,
-            'tracking_domain'     => null,
-            'signing_domain'      => null,
-            'return_path_domain'  => null,
-            'metadata'            => [],
-            'global_merge_vars'   => []
-        ];
-
-        $this->assertEquals($expected, $this->options->toArray());
+        $this->message = new Message();
     }
 
     public function testSetIsImportant()
     {
-        $this->options->isImportant();
+        $this->message->isImportant();
 
-        $headers = $this->options->toArray()['headers'];
+        $headers = $this->message->toArray()['headers'];
 
-        $this->assertTrue($this->options->toArray()['important']);
+        $this->assertTrue($this->message->toArray()['important']);
         $this->assertArrayHasKey('X-Priority', $headers);
         $this->assertEquals(1, $headers['X-Priority']);
 
@@ -85,90 +56,90 @@ class MessageOptionsTest extends TestCase
 
     public function testTrackOpens()
     {
-        $this->options->trackOpens();
-        $this->assertTrue($this->options->toArray()['track_opens']);
+        $this->message->trackOpens();
+        $this->assertTrue($this->message->toArray()['track_opens']);
     }
 
     public function testTrackClicks()
     {
-        $this->options->trackClicks();
-        $this->assertTrue($this->options->toArray()['track_clicks']);
+        $this->message->trackClicks();
+        $this->assertTrue($this->message->toArray()['track_clicks']);
     }
 
     public function testAutoGenerateText()
     {
-        $this->options->autoGenerateText();
-        $this->assertTrue($this->options->toArray()['auto_text']);
+        $this->message->autoGenerateText();
+        $this->assertTrue($this->message->toArray()['auto_text']);
     }
 
     public function testAutoGenerateHtml()
     {
-        $this->options->autoGenerateHtml();
-        $this->assertTrue($this->options->toArray()['auto_html']);
+        $this->message->autoGenerateHtml();
+        $this->assertTrue($this->message->toArray()['auto_html']);
     }
 
     public function testInlineCss()
     {
-        $this->options->inlineCss();
-        $this->assertTrue($this->options->toArray()['inline_css']);
+        $this->message->inlineCss();
+        $this->assertTrue($this->message->toArray()['inline_css']);
     }
 
     public function testUrlStripQs()
     {
-        $this->options->urlStripQs();
-        $this->assertTrue($this->options->toArray()['url_strip_qs']);
+        $this->message->urlStripQs();
+        $this->assertTrue($this->message->toArray()['url_strip_qs']);
     }
 
     public function testPreserveRecipients()
     {
-        $this->options->preserveRecipients();
-        $this->assertTrue($this->options->toArray()['preserve_recipients']);
+        $this->message->preserveRecipients();
+        $this->assertTrue($this->message->toArray()['preserve_recipients']);
     }
 
     public function testDisableContentLink()
     {
-        $this->options->disableContentLink();
-        $this->assertFalse($this->options->toArray()['view_content_link']);
+        $this->message->disableContentLink();
+        $this->assertFalse($this->message->toArray()['view_content_link']);
     }
 
     public function testSetBccAddress()
     {
         $email = 'test@example.com';
 
-        $this->options->setBccAddress($email);
-        $this->assertEquals($email, $this->options->toArray()['bcc_address']);
+        $this->message->setBccAddress($email);
+        $this->assertEquals($email, $this->message->toArray()['bcc_address']);
     }
 
     public function testSetTrackingDomain()
     {
         $domain = 'track.example.com';
 
-        $this->options->setTrackingDomain($domain);
-        $this->assertEquals($domain, $this->options->toArray()['tracking_domain']);
+        $this->message->setTrackingDomain($domain);
+        $this->assertEquals($domain, $this->message->toArray()['tracking_domain']);
     }
 
     public function testSetSigningDomain()
     {
         $domain = 'sign.example.com';
 
-        $this->options->setSigningDomain($domain);
-        $this->assertEquals($domain, $this->options->toArray()['signing_domain']);
+        $this->message->setSigningDomain($domain);
+        $this->assertEquals($domain, $this->message->toArray()['signing_domain']);
     }
 
     public function testSetReturnPathDomain()
     {
         $domain = 'return.example.com';
 
-        $this->options->setReturnPathDomain($domain);
-        $this->assertEquals($domain, $this->options->toArray()['return_path_domain']);
+        $this->message->setReturnPathDomain($domain);
+        $this->assertEquals($domain, $this->message->toArray()['return_path_domain']);
     }
 
     public function testSetMetadata()
     {
         $metadata = ['key' => 'value'];
 
-        $this->options->setMetadata($metadata);
-        $this->assertEquals($metadata, $this->options->toArray()['metadata']);
+        $this->message->setMetadata($metadata);
+        $this->assertEquals($metadata, $this->message->toArray()['metadata']);
     }
 
     public function testAddMetadata()
@@ -183,10 +154,10 @@ class MessageOptionsTest extends TestCase
             $key2 => $value2
         ];
 
-        $this->options->addMetadata($key1, $value1);
-        $this->options->addMetadata($key2, $value2);
+        $this->message->addMetadata($key1, $value1);
+        $this->message->addMetadata($key2, $value2);
 
-        $this->assertEquals($expected, $this->options->toArray()['metadata']);
+        $this->assertEquals($expected, $this->message->toArray()['metadata']);
     }
 
     public function testAddMergeVar()
@@ -201,13 +172,13 @@ class MessageOptionsTest extends TestCase
             ]
         ];
 
-        $this->options->addMergeVar($name, $content);
-        $this->assertEquals($expected, $this->options->toArray()['global_merge_vars']);
+        $this->message->addMergeVar($name, $content);
+        $this->assertEquals($expected, $this->message->toArray()['global_merge_vars']);
     }
 
     public function testAddMergeVarInvalidKey()
     {
         $this->expectException(ValidationException::class);
-        $this->options->addMergeVar('_invalid', 'this will fail');
+        $this->message->addMergeVar('_invalid', 'this will fail');
     }
 }

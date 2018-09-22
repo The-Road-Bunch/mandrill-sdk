@@ -71,34 +71,28 @@ class Dispatcher implements MessageDispatcherInterface
     }
 
     /**
-     * @param Message      $message
-     * @param Options|null $options
+     * @param Message $message
      *
      * @return SendResponse[]
      */
-    public function send(Message $message, Options $options = null): array
+    public function send(Message $message): array
     {
-        return $this->sendMessage($this->buildMessagePayload($message, $options));
+        return $this->sendMessage($message->toArray());
     }
 
     /**
-     * @param Message      $message
+     * @param Message   $message
      * @param \DateTime $sendAt
-     *      when this message should be sent as a UTC timestamp in YYYY-MM-DD HH:MM:SS format.
+     *          when this message should be sent as a UTC timestamp in YYYY-MM-DD HH:MM:SS format.
      *          If you specify a time in the past, the message will be sent immediately.
      *          An additional fee applies for scheduled email, and this feature is only available to accounts with a
      *          positive balance.
      *
-     * @param Options|null $options
-     *
      * @return SendResponse[]
      */
-    public function sendAt(Message $message, \DateTime $sendAt, Options $options = null): array
+    public function sendAt(Message $message, \DateTime $sendAt): array
     {
-        return $this->sendMessage(
-            $this->buildMessagePayload($message, $options),
-            $sendAt->format('Y-m-d H:i:s')
-        );
+        return $this->sendMessage($message->toArray(), $sendAt->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -129,21 +123,5 @@ class Dispatcher implements MessageDispatcherInterface
                 isset($mr['reject_reason']) ? $mr['reject_reason'] : null);
         }
         return $response;
-    }
-
-    /**
-     * @param Message $message
-     * @param Options $options
-     *
-     * @return array
-     */
-    private function buildMessagePayload(Message $message, Options $options = null): array
-    {
-        $payload = $message->toArray();
-
-        if (null !== $options) {
-            $payload = array_merge_recursive($payload, $options->toArray());
-        }
-        return $payload;
     }
 }

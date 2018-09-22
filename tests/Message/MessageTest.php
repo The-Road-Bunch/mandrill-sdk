@@ -26,8 +26,8 @@ use PHPUnit\Framework\TestCase;
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests
  *
- * @group unit
- * @group message
+ * @group   unit
+ * @group   message
  */
 class MessageTest extends TestCase
 {
@@ -51,15 +51,30 @@ class MessageTest extends TestCase
         $message = new Message();
 
         $expected = [
-            'html'               => '',
-            'text'               => null,
-            'subject'            => null,
-            'from_email'         => null,
-            'from_name'          => null,
-            'to'                 => [],
-            'headers'            => [],
-            'merge_vars'         => [],
-            'recipient_metadata' => []
+            'html'                => '',
+            'text'                => null,
+            'subject'             => null,
+            'from_email'          => null,
+            'from_name'           => null,
+            'to'                  => [],
+            'headers'             => [],
+            'merge_vars'          => [],
+            'recipient_metadata'  => [],
+            'important'           => false,
+            'track_opens'         => null,
+            'track_clicks'        => null,
+            'auto_text'           => null,
+            'auto_html'           => null,
+            'inline_css'          => null,
+            'url_strip_qs'        => null,
+            'preserve_recipients' => null,
+            'view_content_link'   => null,
+            'bcc_address'         => null,
+            'tracking_domain'     => null,
+            'signing_domain'      => null,
+            'return_path_domain'  => null,
+            'metadata'            => [],
+            'global_merge_vars'   => []
         ];
 
         $this->assertEquals($expected, $message->toArray());

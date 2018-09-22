@@ -68,16 +68,6 @@ class MessageDispatcherTest extends TestCase
         $this->assertEquals(null, $this->messagesSpy->providedIpPool);
     }
 
-    public function testSendMessageWithOptions()
-    {
-        $message  = new Message\Message();
-        $options  = new Message\Options();
-        $expected = array_merge($message->toArray(), $options->toArray());
-
-        $this->dispatcher->send($message, $options);
-        $this->assertEquals($expected, $this->messagesSpy->providedMessage);
-    }
-
     public function testSendAtNoRejectReasonResponse()
     {
         $message     = new Message\Message();
@@ -91,13 +81,12 @@ class MessageDispatcherTest extends TestCase
     public function testSendAt()
     {
         $message  = new Message\Message();
-        $options  = new Message\Options();
-        $expected = array_merge($message->toArray(), $options->toArray());
+        $expected = $message->toArray();
 
         $sendDate          = new \DateTime();
         $sendDateFormatted = $sendDate->format('Y-m-d H:i:s');
 
-        $this->dispatcher->sendAt($message, $sendDate, $options);
+        $this->dispatcher->sendAt($message, $sendDate);
         $this->assertEquals($expected, $this->messagesSpy->providedMessage);
         $this->assertEquals($sendDateFormatted, $this->messagesSpy->providedSendAt);
     }
