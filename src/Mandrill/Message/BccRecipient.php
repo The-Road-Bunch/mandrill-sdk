@@ -21,11 +21,11 @@ namespace DZMC\Mandrill\Message;
 class BccRecipient extends Recipient
 {
     /**
-     * he header type to use for the recipient, defaults to "to" if not provided
+     * the header type to use for the recipient, defaults to "to" if not provided
      *
      * @return string to|cc|bcc
      */
-    protected function getType(): string
+    public function getType(): string
     {
         return 'bcc';
     }
