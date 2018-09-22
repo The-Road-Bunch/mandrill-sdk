@@ -96,8 +96,8 @@ class Dispatcher implements MessageDispatcherInterface
     }
 
     /**
-     * @param array  $payload
-     * @param string $sendAt
+     * @param array       $payload
+     * @param string|null $sendAt
      *
      * @return array
      */
