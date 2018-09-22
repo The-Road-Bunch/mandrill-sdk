@@ -48,4 +48,11 @@ interface RecipientInterface
      * @return string
      */
     public function getEmail(): string;
+
+    /**
+     * the header type to use for the recipient, defaults to "to" if not provided
+     *
+     * @return string to|cc|bcc
+     */
+    public function getType(): string;
 }
