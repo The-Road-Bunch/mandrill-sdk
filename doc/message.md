@@ -18,4 +18,4 @@ $message->setSubject('A subject for your email');
 $message->addTo('example@example.com', 'Example Recipient');
 ```
 
-_**Note:**_ `Message::addTo()`, `Message::addCc()`, and `Message::addBcc()` all return an instance of [RecipientBuilderInterface](../src/Mandrill/Message/RecipientBuilderInterface.php)
+_Note:_ `Message::addTo()`, `Message::addCc()`, and `Message::addBcc()` all return an instance of [RecipientBuilderInterface](../src/Mandrill/Message/RecipientBuilderInterface.php)
