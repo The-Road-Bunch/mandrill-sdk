@@ -230,6 +230,20 @@ class Message implements MessageInterface, MessageOptionsInterface
     protected $mergeLanguage = self::MERGE_LANGUAGE_MAILCHIMP;
 
     /**
+     * an array of supported attachments to add to the message
+     *
+     * @var array $attachments
+     */
+    protected $attachments = [];
+
+    /**
+     * an array of embedded images to add to the message
+     *
+     * @var array $images
+     */
+    protected $images = [];
+
+    /**
      * @param string $subject
      */
     public function setSubject(string $subject)
@@ -524,6 +538,39 @@ class Message implements MessageInterface, MessageOptionsInterface
     }
 
     /**
+     * a single supported attachment
+     *
+     * @param string $type    the MIME type of the attachment
+     * @param string $name    the file name of the attachment
+     * @param string $content the content of the attachment as a base64-encoded string
+     */
+    public function addAttachment(string $type, string $name, string $content)
+    {
+        $this->attachments[] = [
+            'type'    => $type,
+            'name'    => $name,
+            'content' => $content
+        ];
+    }
+
+    /**
+     * an array of embedded images to add to the message
+     *
+     * @param string $type    the MIME type of the image - must start with "image/"
+     * @param string $name    the Content ID of the image
+     *                        use <img src="cid:THIS_VALUE"> to reference the image in your HTML content
+     * @param string $content the content of the image as a base64-encoded string
+     */
+    public function addImage(string $type, string $name, string $content)
+    {
+        $this->images[] = [
+            'type'    => $type,
+            'name'    => $name,
+            'content' => $content
+        ];
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
@@ -558,7 +605,9 @@ class Message implements MessageInterface, MessageOptionsInterface
             'tags'                      => $this->tags,
             'subaccount'                => $this->subaccount,
             'merge'                     => $this->merge,
-            'merge_language'            => $this->mergeLanguage
+            'merge_language'            => $this->mergeLanguage,
+            'attachments'               => $this->attachments,
+            'images'                    => $this->images
         ];
     }
 

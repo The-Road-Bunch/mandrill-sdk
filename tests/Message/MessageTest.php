@@ -80,7 +80,9 @@ class MessageTest extends TestCase
             'tags'                      => [],
             'subaccount'                => null,
             'merge'                     => false,
-            'merge_language'            => Message::MERGE_LANGUAGE_MAILCHIMP
+            'merge_language'            => Message::MERGE_LANGUAGE_MAILCHIMP,
+            'attachments'               => [],
+            'images'                    => []
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -465,5 +467,31 @@ class MessageTest extends TestCase
     {
         $this->message->setMergeLanguage(Message::MERGE_LANGUAGE_MAILCHIMP);
         $this->assertEquals(Message::MERGE_LANGUAGE_MAILCHIMP, $this->message->toArray()['merge_language']);
+    }
+
+    public function testAddAttachment()
+    {
+        $attachment = [
+            'type'    => 'text/csv',
+            'name'    => 'testfile.csv',
+            'content' => 'a base 64 encoded string'
+        ];
+        $this->message->addAttachment($attachment['type'], $attachment['name'], $attachment['content']);
+
+        $this->assertCount(1, $this->message->toArray()['attachments']);
+        $this->assertEquals($attachment, $this->message->toArray()['attachments'][0]);
+    }
+
+    public function testAddImage()
+    {
+        $image = [
+            'type'    => 'image/png',
+            'name'    => 'IMAGECID',
+            'content' => 'a base 64 encoded string'
+        ];
+        $this->message->addImage($image['type'], $image['name'], $image['content']);
+
+        $this->assertCount(1, $this->message->toArray()['images']);
+        $this->assertEquals($image, $this->message->toArray()['images'][0]);
     }
 }
