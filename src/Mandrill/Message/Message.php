@@ -633,16 +633,14 @@ class Message implements MessageInterface, MessageOptionsInterface
     {
         $ret = [];
         foreach ($this->to as $recipient) {
-            if (!empty($mergeVars = $recipient->getMergeVars())) {
+            if ($mergeVars = $recipient->getMergeVars()) {
                 $ret[] = [
                     'rcpt' => $recipient->getEmail(),
                     'vars' => $mergeVars
                 ];
             }
         }
-        if (!empty($ret)) {
-            $this->merge = true;
-        }
+        $this->merge = $this->merge ?: !empty($ret);
         return $ret;
     }
 
@@ -650,7 +648,7 @@ class Message implements MessageInterface, MessageOptionsInterface
     {
         $ret = [];
         foreach ($this->to as $recipient) {
-            if (!empty($metadata = $recipient->getMetadata())) {
+            if ($metadata = $recipient->getMetadata()) {
                 $ret[] = [
                     'rcpt'   => $recipient->getEmail(),
                     'values' => $metadata
