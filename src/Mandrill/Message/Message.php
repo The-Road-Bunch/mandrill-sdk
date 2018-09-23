@@ -25,6 +25,9 @@ class Message implements MessageInterface, MessageOptionsInterface
 {
     use HeaderTrait;
 
+    const MERGE_LANGUAGE_MAILCHIMP  = 'mailchimp';
+    const MERGE_LANGUAGE_HANDLEBARS = 'handlebars';
+
     /**
      * whether or not this message is important,
      * and should be delivered ahead of non-important messages
@@ -209,6 +212,22 @@ class Message implements MessageInterface, MessageOptionsInterface
      * @var string $subaccount
      */
     protected $subaccount;
+
+    /**
+     * whether to evaluate merge tags in the message.
+     *  Will automatically be set to true if either merge_vars or global_merge_vars are provided.
+     *
+     * @var bool $merge
+     */
+    protected $merge = false;
+
+    /**
+     * the merge tag language to use when evaluating merge tags, either mailchimp or handlebars
+     *  one of mailchimp|handlebars
+     *
+     * @var string $mergeLanguage
+     */
+    protected $mergeLanguage = self::MERGE_LANGUAGE_MAILCHIMP;
 
     /**
      * @param string $subject
@@ -436,6 +455,7 @@ class Message implements MessageInterface, MessageOptionsInterface
      */
     public function addMergeVar(string $name, $content)
     {
+        $this->merge = true;
         if ($this->stringStartsWithUnderscore($name)) {
             throw new ValidationException('Merge variables may not start with an underscore');
         }
@@ -493,6 +513,17 @@ class Message implements MessageInterface, MessageOptionsInterface
     }
 
     /**
+     * set the merge language
+     * mailchimp|handlebars
+     *
+     * @param string $mergeLanguage
+     */
+    public function setMergeLanguage(string $mergeLanguage)
+    {
+        $this->mergeLanguage = $mergeLanguage;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
@@ -525,7 +556,9 @@ class Message implements MessageInterface, MessageOptionsInterface
             'google_analytics_domains'  => $this->googleAnalyticsDomains,
             'google_analytics_campaign' => $this->googleAnalyticsCampaign,
             'tags'                      => $this->tags,
-            'subaccount'                => $this->subaccount
+            'subaccount'                => $this->subaccount,
+            'merge'                     => $this->merge,
+            'merge_language'            => $this->mergeLanguage
         ];
     }
 
@@ -557,6 +590,9 @@ class Message implements MessageInterface, MessageOptionsInterface
                     'vars' => $mergeVars
                 ];
             }
+        }
+        if (!empty($ret)) {
+            $this->merge = true;
         }
         return $ret;
     }

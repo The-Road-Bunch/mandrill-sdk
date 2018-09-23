@@ -78,7 +78,9 @@ class MessageTest extends TestCase
             'google_analytics_domains'  => [],
             'google_analytics_campaign' => null,
             'tags'                      => [],
-            'subaccount'                => null
+            'subaccount'                => null,
+            'merge'                     => false,
+            'merge_language'            => Message::MERGE_LANGUAGE_MAILCHIMP
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -229,6 +231,7 @@ class MessageTest extends TestCase
         $this->message->addCc('shouldnotshowup@example.com', 'dan');
 
         $this->assertEquals($expected, $this->message->toArray()['merge_vars']);
+        $this->assertTrue($this->message->toArray()['merge']);
     }
 
     public function testBuildMetadataArray()
@@ -441,6 +444,7 @@ class MessageTest extends TestCase
 
         $this->message->addMergeVar($name, $content);
         $this->assertEquals($expected, $this->message->toArray()['global_merge_vars']);
+        $this->assertTrue($this->message->toArray()['merge']);
     }
 
     public function testAddMergeVarStartingWithUnderscore()
@@ -455,5 +459,11 @@ class MessageTest extends TestCase
 
         $this->message->setSubaccount($subaccount);
         $this->assertEquals($subaccount, $this->message->toArray()['subaccount']);
+    }
+
+    public function testSetMergeLanguage()
+    {
+        $this->message->setMergeLanguage(Message::MERGE_LANGUAGE_MAILCHIMP);
+        $this->assertEquals(Message::MERGE_LANGUAGE_MAILCHIMP, $this->message->toArray()['merge_language']);
     }
 }
