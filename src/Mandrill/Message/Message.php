@@ -204,6 +204,13 @@ class Message implements MessageInterface, MessageOptionsInterface
     protected $tags = [];
 
     /**
+     * the unique id of a subaccount for this message - must already exist or will fail with an error
+     *
+     * @var string $subaccount
+     */
+    protected $subaccount;
+
+    /**
      * @param string $subject
      */
     public function setSubject(string $subject)
@@ -476,6 +483,16 @@ class Message implements MessageInterface, MessageOptionsInterface
     }
 
     /**
+     * the unique id of a subaccount for this message - must already exist or will fail with an error
+     *
+     * @param string $subaccount
+     */
+    public function setSubaccount(string $subaccount)
+    {
+        $this->subaccount = $subaccount;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
@@ -507,7 +524,8 @@ class Message implements MessageInterface, MessageOptionsInterface
             'global_merge_vars'         => $this->globalMergeVars,
             'google_analytics_domains'  => $this->googleAnalyticsDomains,
             'google_analytics_campaign' => $this->googleAnalyticsCampaign,
-            'tags'                      => $this->tags
+            'tags'                      => $this->tags,
+            'subaccount'                => $this->subaccount
         ];
     }
 

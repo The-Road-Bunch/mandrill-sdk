@@ -77,7 +77,8 @@ class MessageTest extends TestCase
             'global_merge_vars'         => [],
             'google_analytics_domains'  => [],
             'google_analytics_campaign' => null,
-            'tags'                      => []
+            'tags'                      => [],
+            'subaccount'                => null
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -446,5 +447,13 @@ class MessageTest extends TestCase
     {
         $this->expectException(ValidationException::class);
         $this->message->addMergeVar('_invalid', 'this will fail');
+    }
+
+    public function testSetSubaccount()
+    {
+        $subaccount = 'subexample';
+
+        $this->message->setSubaccount($subaccount);
+        $this->assertEquals($subaccount, $this->message->toArray()['subaccount']);
     }
 }
