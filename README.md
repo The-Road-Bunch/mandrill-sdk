@@ -10,15 +10,13 @@ _An OOP library for interfacing with Mandrill's API_
 1. [Release Notes](doc/release.md)
 2. [Installation](#installation)  
     a. [Bundles](#bundle-installation)
-2. [Basic Usage](#basic-usage)  
-    a. [Creating and Sending a Basic Email](#basic-email)
+3. [Basic Usage](#basic-usage)  
+    a. [Creating and Sending a Basic Email](#basic-email)  
+4. [License](LICENSE)
 
-### <a name="installation">Installation</a>
+### <a name="installation">Install using composer</a> <sup><small>[[?]](https://getcomposer.org)</a></small></sup>
 
 `composer require danmcadams/mandrill-sdk`
-
-#### <a name="bundle-installation">Bundle Installation</a>
-`// none at the moment, feel free to create one though`
 
 ### <a name="basic-usage">Basic Usage</a>
 
@@ -52,14 +50,13 @@ $message->setFromEmail('from@example.com');
 $message->setFromName('From');
 $message->setReplyTo('replyto@example.com');
 
-/** @var SDK\Message\SendResponse[] $response An array of SendResponse objects */
+/** @var SDK\Message\SendResponse[] $response */
 $response = $dispatcher->send($message);
 
 ```
 
 example response array
 ```
-
 array:2 [
   0 => DZMC\Mandrill\Message\SendResponse {#22
     +id: "118a7d900f5c48ec9a91cf55c63a7d97"
@@ -75,3 +72,5 @@ array:2 [
   }
 ]
 ````
+
+&copy; 2018 Dan McAdams
