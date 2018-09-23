@@ -176,7 +176,7 @@ class MessageOptionsTest extends TestCase
         $this->assertEquals($expected, $this->message->toArray()['global_merge_vars']);
     }
 
-    public function testAddMergeVarInvalidKey()
+    public function testAddMergeVarStartingWithUnderscore()
     {
         $this->expectException(ValidationException::class);
         $this->message->addMergeVar('_invalid', 'this will fail');
