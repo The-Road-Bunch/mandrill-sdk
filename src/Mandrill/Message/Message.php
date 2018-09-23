@@ -194,6 +194,16 @@ class Message implements MessageInterface, MessageOptionsInterface
     protected $googleAnalyticsCampaign;
 
     /**
+     * an array of strings to tag the message with. Stats are accumulated using tags,
+     *  though we only store the first 100 we see, so this should not be unique or change frequently.
+     *  Tags should be 50 characters or less.
+     *  Any tags starting with an underscore are reserved for internal use and will cause errors.
+     *
+     * @var array $tags
+     */
+    protected $tags = [];
+
+    /**
      * @param string $subject
      */
     public function setSubject(string $subject)
@@ -419,14 +429,28 @@ class Message implements MessageInterface, MessageOptionsInterface
      */
     public function addMergeVar(string $name, $content)
     {
-        if (substr($name, 0, 1) === '_') {
+        if ($this->stringStartsWithUnderscore($name)) {
             throw new ValidationException('Merge variables may not start with an underscore');
         }
+        $this->globalMergeVars[] = ['name' => $name, 'content' => $content];
+    }
 
-        $this->globalMergeVars[] = [
-            'name'    => $name,
-            'content' => $content
-        ];
+    /**
+     * A string to tag the message with. Stats are accumulated using tags,
+     *  though we only store the first 100 we see, so this should not be unique or change frequently.
+     *  Tags should be 50 characters or less.
+     *  Any tags starting with an underscore are reserved for internal use and will cause errors.
+     *
+     * @param string $tag
+     *
+     * @throws ValidationException
+     */
+    public function addTag(string $tag)
+    {
+        if ($this->stringStartsWithUnderscore($tag)) {
+            throw new ValidationException('Tags may not start with an underscore');
+        }
+        $this->tags[] = $tag;
     }
 
     /**
@@ -482,7 +506,8 @@ class Message implements MessageInterface, MessageOptionsInterface
             'metadata'                  => $this->metadata,
             'global_merge_vars'         => $this->globalMergeVars,
             'google_analytics_domains'  => $this->googleAnalyticsDomains,
-            'google_analytics_campaign' => $this->googleAnalyticsCampaign
+            'google_analytics_campaign' => $this->googleAnalyticsCampaign,
+            'tags'                      => $this->tags
         ];
     }
 
@@ -530,5 +555,15 @@ class Message implements MessageInterface, MessageOptionsInterface
             }
         }
         return $ret;
+    }
+
+    /**
+     * @param string $str
+     *
+     * @return bool
+     */
+    private function stringStartsWithUnderscore(string $str)
+    {
+        return substr($str, 0, 1) === '_';
     }
 }

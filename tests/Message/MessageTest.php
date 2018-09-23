@@ -76,7 +76,8 @@ class MessageTest extends TestCase
             'metadata'                  => [],
             'global_merge_vars'         => [],
             'google_analytics_domains'  => [],
-            'google_analytics_campaign' => null
+            'google_analytics_campaign' => null,
+            'tags'                      => []
         ];
 
         $this->assertEquals($expected, $message->toArray());
@@ -283,5 +284,22 @@ class MessageTest extends TestCase
 
         $this->message->setGoogleAnalyticsCampaign($campaign);
         $this->assertEquals($campaign, $this->message->toArray()['google_analytics_campaign']);
+    }
+
+    public function testAddTag()
+    {
+        $tagOne = 'tag_one';
+        $tagTwo = 'tag_two';
+
+        $this->message->addTag($tagOne);
+        $this->message->addTag($tagTwo);
+
+        $this->assertEquals([$tagOne, $tagTwo], $this->message->toArray()['tags']);
+    }
+
+    public function testAddTagStartingWithUnderscore()
+    {
+        $this->expectException(ValidationException::class);
+        $this->message->addTag('_invalid');
     }
 }
