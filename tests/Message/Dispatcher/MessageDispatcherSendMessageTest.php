@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message;
+namespace DZMC\Mandrill\Tests\Message\Dispatcher;
 
 
 use DZMC\Mandrill\Exception\EmptyResponseException;
@@ -25,9 +25,9 @@ use PHPUnit\Framework\TestCase;
  * @author  Dan McAdams
  * @package DZMC\Mandrill\Tests\Message
  *
- * @group unit
- * @group message
- * @group dispatcher
+ * @group   unit
+ * @group   message
+ * @group   dispatcher
  */
 class MessageDispatcherTest extends TestCase
 {
@@ -117,5 +117,22 @@ class MessageDispatcherTest extends TestCase
         $this->assertInternalType('array', $response);
         $this->assertInstanceOf(Message\SendResponse::class, $response[0]);
         $this->assertEquals($expectedMessages[0], $response[0]->toArray());
+    }
+
+    public function testSendTemplate()
+    {
+        $template = new Message\Template('mandrill_template');
+        $template->addContent('block_one', 'content one')
+                 ->addContent('block_two', 'content two');
+
+        $message = new Message\Message();
+        $message->setFrom('from@example.com');
+        $message->setSubject('this is an email subject');
+        $message->addTo('test@example.com', 'test email person');
+
+        $this->dispatcher->sendTemplate($template, $message);
+        $this->assertEquals($message->toArray(), $this->messagesSpy->providedMessage);
+        $this->assertEquals($template->getContent(), $this->messagesSpy->providedTemplateContent);
+        $this->assertEquals($template->getName(), $this->messagesSpy->providedTemplateName);
     }
 }
