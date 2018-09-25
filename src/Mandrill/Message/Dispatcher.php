@@ -77,7 +77,7 @@ class Dispatcher implements MessageDispatcherInterface
      */
     public function send(Message $message): array
     {
-        return $this->sendMessage($message->toArray());
+        return $this->sendMessage($message);
     }
 
     /**
@@ -92,19 +92,68 @@ class Dispatcher implements MessageDispatcherInterface
      */
     public function sendAt(Message $message, \DateTime $sendAt): array
     {
-        return $this->sendMessage($message->toArray(), $sendAt->format('Y-m-d H:i:s'));
+        return $this->sendMessage($message, $sendAt->format('Y-m-d H:i:s'));
     }
 
     /**
-     * @param array       $payload
+     * @param Message     $message
      * @param string|null $sendAt
+     *
+     * @return SendResponse[]
+     */
+    private function sendMessage(Message $message, string $sendAt = null): array
+    {
+        /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
+        return $this->buildResponse($this->service->send($message->toArray(), $this->async, $this->ipPool, $sendAt));
+    }
+
+    /**
+     * @param TemplateInterface $template
+     * @param Message           $message
+     *
+     * @return SendResponse[]
+     */
+    public function sendTemplate(TemplateInterface $template, Message $message): array
+    {
+        return $this->sendTemplateMessage($template, $message);
+    }
+
+    /**
+     * @param TemplateInterface $template
+     * @param Message           $message
+     * @param \DateTime         $sendAt
+     *          when this message should be sent as a UTC timestamp in YYYY-MM-DD HH:MM:SS format.
+     *          If you specify a time in the past, the message will be sent immediately.
+     *          An additional fee applies for scheduled email, and this feature is only available to accounts with a
+     *          positive balance.
      *
      * @return array
      */
-    private function sendMessage(array $payload, string $sendAt = null): array
+    public function sendTemplateAt(TemplateInterface $template, Message $message, \DateTime $sendAt): array
+    {
+        return $this->sendTemplateMessage($template, $message, $sendAt->format('Y-m-d H:i:s'));
+    }
+
+    /**
+     * @param TemplateInterface $template
+     * @param Message           $message
+     * @param string|null       $sendAt
+     *
+     * @return array
+     */
+    private function sendTemplateMessage(TemplateInterface $template, Message $message, string $sendAt = null)
     {
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
-        return $this->buildResponse($this->service->send($payload, $this->async, $this->ipPool, $sendAt));
+        return $this->buildResponse(
+            $this->service->sendTemplate(
+                $template->getName(),
+                $template->getContent(),
+                $message->toArray(),
+                $this->async,
+                $this->ipPool,
+                $sendAt
+            )
+        );
     }
 
     /**

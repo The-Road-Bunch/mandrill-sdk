@@ -29,24 +29,8 @@ use PHPUnit\Framework\TestCase;
  * @group   message
  * @group   dispatcher
  */
-class MessageDispatcherTest extends TestCase
+class MessageDispatcherSendMessageTest extends MessageDispatcherTestCase
 {
-    /**
-     * @var Message\Dispatcher $dispatcher
-     */
-    protected $dispatcher;
-
-    /**
-     *Ó @var MessagesSpy $messagesSpy
-     */
-    protected $messagesSpy;
-
-    protected function setUp()
-    {
-        $this->messagesSpy = new MessagesSpy();
-        $this->dispatcher  = new Message\Dispatcher($this->messagesSpy);
-    }
-
     public function testSendMessage()
     {
         $message = new Message\Message();
@@ -117,22 +101,5 @@ class MessageDispatcherTest extends TestCase
         $this->assertInternalType('array', $response);
         $this->assertInstanceOf(Message\SendResponse::class, $response[0]);
         $this->assertEquals($expectedMessages[0], $response[0]->toArray());
-    }
-
-    public function testSendTemplate()
-    {
-        $template = new Message\Template('mandrill_template');
-        $template->addContent('block_one', 'content one')
-                 ->addContent('block_two', 'content two');
-
-        $message = new Message\Message();
-        $message->setFrom('from@example.com');
-        $message->setSubject('this is an email subject');
-        $message->addTo('test@example.com', 'test email person');
-
-        $this->dispatcher->sendTemplate($template, $message);
-        $this->assertEquals($message->toArray(), $this->messagesSpy->providedMessage);
-        $this->assertEquals($template->getContent(), $this->messagesSpy->providedTemplateContent);
-        $this->assertEquals($template->getName(), $this->messagesSpy->providedTemplateName);
     }
 }

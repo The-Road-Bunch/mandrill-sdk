@@ -24,6 +24,8 @@ class MessagesSpy extends \Mandrill_Messages
     public $providedSendAt;
     public $providedIpPool;
     public $providedAsync;
+    public $providedTemplateName;
+    public $providedTemplateContent;
 
     protected $expectedResponses;
 
@@ -48,6 +50,22 @@ class MessagesSpy extends \Mandrill_Messages
         $this->providedSendAt  = $send_at;
         $this->providedIpPool  = $ip_pool;
         $this->providedAsync   = $async;
+
+        return $this->expectedResponses;
+    }
+
+    public function sendTemplate(
+        $template_name,
+        $template_content,
+        $message,
+        $async = false,
+        $ip_pool = null,
+        $send_at = null
+    ): array {
+        $this->providedTemplateName    = $template_name;
+        $this->providedTemplateContent = $template_content;
+        $this->providedMessage         = $message;
+        $this->providedSendAt          = $send_at;
 
         return $this->expectedResponses;
     }
