@@ -11,7 +11,9 @@
 
 namespace DZMC\Mandrill\Tests\Message;
 
+use DZMC\Mandrill\Message\Message;
 use DZMC\Mandrill\Message\Template;
+use DZMC\Mandrill\Message\TemplateMessage;
 use PHPUnit\Framework\TestCase;
 
 
@@ -23,18 +25,19 @@ use PHPUnit\Framework\TestCase;
  */
 class TemplateMessageTest extends TestCase
 {
-    public function testCreateTemplate()
+    public function testCreateTemplateMessage()
     {
         $name     = 'template_constant';
-        $template = new Template($name);
+        $templateMessage = new TemplateMessage($name);
 
-        $this->assertEquals($name, $template->getName());
+        $this->assertEquals($name, $templateMessage->getName());
+        $this->assertInstanceOf(Message::class, $templateMessage);
     }
 
     public function testAddContent()
     {
-        $template = new Template('test_constant');
-        $template->addContent($name = 'BLOCKNAME', $content = 'content');
+        $templateMessage = new TemplateMessage('test_constant');
+        $templateMessage->addContent($name = 'BLOCKNAME', $content = 'content');
 
         $expect = [
             [
@@ -42,6 +45,6 @@ class TemplateMessageTest extends TestCase
                 'content' => $content
             ]
         ];
-        $this->assertEquals($expect, $template->getContent());
+        $this->assertEquals($expect, $templateMessage->getContent());
     }
 }
