@@ -65,13 +65,12 @@ class MessageDispatcherSendMessageTest extends MessageDispatcherTestCase
     public function testSendAt()
     {
         $message  = new Message\Message();
-        $expected = $message->toArray();
 
         $sendDate          = new \DateTime();
         $sendDateFormatted = $sendDate->format('Y-m-d H:i:s');
 
         $this->dispatcher->sendAt($message, $sendDate);
-        $this->assertEquals($expected, $this->messagesSpy->providedMessage);
+        $this->assertEquals($message->toArray(), $this->messagesSpy->providedMessage);
         $this->assertEquals($sendDateFormatted, $this->messagesSpy->providedSendAt);
     }
 

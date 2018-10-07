@@ -30,19 +30,18 @@ class MessageDispatcherSendTemplateTest extends MessageDispatcherTestCase
 {
     public function testSendTemplate()
     {
-        $template = new Message\Template('mandrill_template');
-        $template->addContent('block_one', 'content one')
-                 ->addContent('block_two', 'content two');
+        $templateMessage = new Message\TemplateMessage('mandrill_template');
+        $templateMessage->addContent('block_one', 'content one');
+        $templateMessage->addContent('block_two', 'content two');
 
-        $message = new Message\Message();
-        $message->setFrom('from@example.com');
-        $message->setSubject('this is an email subject');
-        $message->addTo('test@example.com', 'test email person');
+        $templateMessage->setFrom('from@example.com');
+        $templateMessage->setSubject('this is an email subject');
+        $templateMessage->addTo('test@example.com', 'test email person');
 
-        $this->dispatcher->sendTemplate($template, $message);
-        $this->assertEquals($message->toArray(), $this->messagesSpy->providedMessage);
-        $this->assertEquals($template->getContent(), $this->messagesSpy->providedTemplateContent);
-        $this->assertEquals($template->getName(), $this->messagesSpy->providedTemplateName);
+        $this->dispatcher->sendTemplate($templateMessage);
+        $this->assertEquals($templateMessage->toArray(), $this->messagesSpy->providedMessage);
+        $this->assertEquals($templateMessage->getContent(), $this->messagesSpy->providedTemplateContent);
+        $this->assertEquals($templateMessage->getName(), $this->messagesSpy->providedTemplateName);
     }
 
     public function testReturnsSendResponse()
@@ -55,13 +54,13 @@ class MessageDispatcherSendTemplateTest extends MessageDispatcherTestCase
                 '_id'           => uniqid()
             ]
         ];
-        $template = new Message\Template('fake_template');
-        $template->addContent('block_one', 'content');
+        $templateMessage = new Message\TemplateMessage('test_template');
+        $templateMessage->addContent('block_one', 'content');
 
         $messageService   = new MessagesSpy($expectedMessages);
         $dispatcher       = new Message\Dispatcher($messageService);
 
-        $response = $dispatcher->sendTemplate($template, new Message\Message());
+        $response = $dispatcher->sendTemplate($templateMessage);
 
         $this->assertInternalType('array', $response);
         $this->assertInstanceOf(Message\SendResponse::class, $response[0]);
@@ -73,20 +72,20 @@ class MessageDispatcherSendTemplateTest extends MessageDispatcherTestCase
         $dispatcher     = new Message\Dispatcher($messageService);
 
         $this->assertEmpty(
-            $dispatcher->sendTemplate(new Template('test_constant'), new Message\Message())
+            $dispatcher->sendTemplate(new Message\TemplateMessage('test_template'))
         );
     }
 
     public function testSendAt()
     {
-        $message  = new Message\Message();
-        $expected = $message->toArray();
+        $templateMessage  = new Message\TemplateMessage('test_template');
+        $templateMessage->addTo('test@example.com');
 
         $sendDate          = new \DateTime();
         $sendDateFormatted = $sendDate->format('Y-m-d H:i:s');
 
-        $this->dispatcher->sendTemplateAt(new Template('test_constant'), $message, $sendDate);
-        $this->assertEquals($expected, $this->messagesSpy->providedMessage);
+        $this->dispatcher->sendTemplateAt($templateMessage, $sendDate);
+        $this->assertEquals($templateMessage->toArray(), $this->messagesSpy->providedMessage);
         $this->assertEquals($sendDateFormatted, $this->messagesSpy->providedSendAt);
     }
 }

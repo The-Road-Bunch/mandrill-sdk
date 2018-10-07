@@ -92,7 +92,7 @@ class Dispatcher implements MessageDispatcherInterface
      */
     public function sendAt(Message $message, \DateTime $sendAt): array
     {
-        return $this->sendMessage($message, $sendAt->format('Y-m-d H:i:s'));
+        return $this->sendMessage($message, $this->formatDateForMandrill($sendAt));
     }
 
     /**
@@ -108,20 +108,18 @@ class Dispatcher implements MessageDispatcherInterface
     }
 
     /**
-     * @param TemplateInterface $template
-     * @param Message           $message
+     * @param TemplateMessage $message
      *
      * @return SendResponse[]
      */
-    public function sendTemplate(TemplateInterface $template, Message $message): array
+    public function sendTemplate(TemplateMessage $message): array
     {
-        return $this->sendTemplateMessage($template, $message);
+        return $this->sendTemplateMessage($message);
     }
 
     /**
-     * @param TemplateInterface $template
-     * @param Message           $message
-     * @param \DateTime         $sendAt
+     * @param TemplateMessage $message
+     * @param \DateTime       $sendAt
      *          when this message should be sent as a UTC timestamp in YYYY-MM-DD HH:MM:SS format.
      *          If you specify a time in the past, the message will be sent immediately.
      *          An additional fee applies for scheduled email, and this feature is only available to accounts with a
@@ -129,25 +127,24 @@ class Dispatcher implements MessageDispatcherInterface
      *
      * @return array
      */
-    public function sendTemplateAt(TemplateInterface $template, Message $message, \DateTime $sendAt): array
+    public function sendTemplateAt(TemplateMessage $message, \DateTime $sendAt): array
     {
-        return $this->sendTemplateMessage($template, $message, $sendAt->format('Y-m-d H:i:s'));
+        return $this->sendTemplateMessage($message, $this->formatDateForMandrill($sendAt));
     }
 
     /**
-     * @param TemplateInterface $template
-     * @param Message           $message
-     * @param string|null       $sendAt
+     * @param TemplateMessage $message
+     * @param string|null     $sendAt
      *
      * @return array
      */
-    private function sendTemplateMessage(TemplateInterface $template, Message $message, string $sendAt = null)
+    private function sendTemplateMessage(TemplateMessage $message, string $sendAt = null)
     {
         /** @noinspection PhpParamsInspection ignore error warning because Mandrill used \struct in their docblock */
         return $this->buildResponse(
             $this->service->sendTemplate(
-                $template->getName(),
-                $template->getContent(),
+                $message->getName(),
+                $message->getContent(),
                 $message->toArray(),
                 $this->async,
                 $this->ipPool,
@@ -172,5 +169,15 @@ class Dispatcher implements MessageDispatcherInterface
                 isset($mr['reject_reason']) ? $mr['reject_reason'] : null);
         }
         return $response;
+    }
+
+    /**
+     * @param \DateTime $sendAt
+     *
+     * @return string
+     */
+    private function formatDateForMandrill(\DateTime $sendAt): string
+    {
+        return $sendAt->format('Y-m-d H:i:s');
     }
 }
