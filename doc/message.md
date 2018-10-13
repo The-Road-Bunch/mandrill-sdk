@@ -1,4 +1,4 @@
-## creating a message
+## creating and sending an email message
 
 ```php
 <?php
