@@ -92,7 +92,7 @@ class Dispatcher implements MessageDispatcherInterface
      */
     public function sendAt(Message $message, \DateTime $sendAt): array
     {
-        return $this->sendMessage($message, $this->formatDateForMandrill($sendAt));
+        return $this->sendMessage($message, $this->formatDate($sendAt));
     }
 
     /**
@@ -129,7 +129,7 @@ class Dispatcher implements MessageDispatcherInterface
      */
     public function sendTemplateAt(TemplateMessage $message, \DateTime $sendAt): array
     {
-        return $this->sendTemplateMessage($message, $this->formatDateForMandrill($sendAt));
+        return $this->sendTemplateMessage($message, $this->formatDate($sendAt));
     }
 
     /**
@@ -154,21 +154,25 @@ class Dispatcher implements MessageDispatcherInterface
     }
 
     /**
+     * Mandrill's API returns an array of response array when you
+     * send a message, here we'll convert them into objects before we return them to the user
+     *
      * @param $messagesResponse
      *
-     * @return array
+     * @return SendResponse[]
      */
     private function buildResponse(array $messagesResponse): array
     {
-        $response = [];
-        foreach ($messagesResponse as $mr) {
-            $response[] = new SendResponse(
-                $mr['_id'],
-                $mr['email'],
-                $mr['status'],
-                isset($mr['reject_reason']) ? $mr['reject_reason'] : null);
+        $resArray = [];
+        foreach ($messagesResponse as $response) {
+            $resArray[] = new SendResponse(
+                $response['_id'],
+                $response['email'],
+                $response['status'],
+                isset($response['reject_reason']) ? $response['reject_reason'] : null
+            );
         }
-        return $response;
+        return $resArray;
     }
 
     /**
@@ -176,7 +180,7 @@ class Dispatcher implements MessageDispatcherInterface
      *
      * @return string
      */
-    private function formatDateForMandrill(\DateTime $sendAt): string
+    private function formatDate(\DateTime $sendAt): string
     {
         return $sendAt->format('Y-m-d H:i:s');
     }
