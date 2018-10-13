@@ -78,7 +78,8 @@ class RecipientTest extends TestCase
     {
         $expectedVars = [
             ['name' => 'var 1', 'content' => 'content 1'],
-            ['name' => 'var 2', 'content' => 'content 2']
+            ['name' => 'var 2', 'content' => 'content 2'],
+            ['name' => 'var_array', 'content' => ['this' => 'is', 'an' => 'array']]
         ];
 
         foreach ($expectedVars as $var) {
