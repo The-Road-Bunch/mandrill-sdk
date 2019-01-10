@@ -1,4 +1,4 @@
-# danmcadams/mandrill-sdk
+# theroadbunch/mandrill-sdk
 
 ## upcoming releases
 - templates, subaccounts, and ip pools

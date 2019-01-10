@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 /**
- * This file is part of the danmcadams/mandrill-sdk-wrapper package.
+ * This file is part of the theroadbunch/mandrill-sdk package.
  *
  * (c) Dan McAdams <danmcadams@gmail.com>
  *

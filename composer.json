@@ -1,5 +1,5 @@
 {
-    "name": "danmcadams/mandrill-sdk",
+    "name": "theroadbunch/mandrill-sdk",
     "description": "An OOP Implementation of the Mandrill PHP SDK",
     "type": "library",
     "license": "MIT",
