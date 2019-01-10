@@ -46,8 +46,7 @@ $message->addTo('recipient@example.com', 'Recipient Name');
 $message->addCc('cc_recipient@example.com', 'CC Recipient Name');
 
 // set senders
-$message->setFromEmail('from@example.com');
-$message->setFromName('From');
+$message->setFrom('from@example.com', 'Admin');
 $message->setReplyTo('replyto@example.com');
 
 /** @var SDK\Message\SendResponse[] $response */

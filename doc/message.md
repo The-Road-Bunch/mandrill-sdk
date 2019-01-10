@@ -10,7 +10,7 @@ $dispatcher = (new SDK\DispatcherFactory('your_api_key'))->createMessageDispatch
 
 // create a basic message
 $message = new SDK\Message\Message();
-$message->setFrom('from@example.com');
+$message->setFrom('from@example.com', 'From Name');
 $message->setText('An email body');
 $message->setSubject('A subject for your email');
 
