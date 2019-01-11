@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests;
+namespace RoadBunch\Tests\Mandrill;
 
-use DZMC\Mandrill\Message\RejectReason;
-use DZMC\Mandrill\Response;
+use RoadBunch\Mandrill\Message\RejectReason;
+use RoadBunch\Mandrill\Response;
 use PHPUnit\Framework\TestCase;
 
 
@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  * Class ResponseTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests
+ * @package RoadBunch\Tests\Mandrill
  *
  * @group unit
  */

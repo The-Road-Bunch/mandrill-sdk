@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message\Dispatcher;
+namespace RoadBunch\Tests\Mandrill\Message\Dispatcher;
 
 
-use DZMC\Mandrill\Exception\EmptyResponseException;
-use DZMC\Mandrill\Message as Message;
-use DZMC\Mandrill\Response;
-use DZMC\Mandrill\Tests\Mock\MessagesSpy;
-use DZMC\Mandrill\Tests\Mock\NoResponseMessagesMock;
+use RoadBunch\Mandrill\Exception\EmptyResponseException;
+use RoadBunch\Mandrill\Message as Message;
+use RoadBunch\Mandrill\Response;
+use RoadBunch\Tests\Mandrill\Mock\MessagesSpy;
+use RoadBunch\Tests\Mandrill\Mock\NoResponseMessagesMock;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class MessageDispatcherTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message
+ * @package RoadBunch\Tests\Mandrill\Message
  *
  * @group   unit
  * @group   message

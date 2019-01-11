@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Message;
+namespace RoadBunch\Mandrill\Message;
 
 /**
  * Class Dispatcher
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Message
+ * @package RoadBunch\Mandrill\Message
  */
 interface MessageDispatcherInterface
 {

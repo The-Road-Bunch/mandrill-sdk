@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Exception;
+namespace RoadBunch\Mandrill\Exception;
 
 
 /**
  * Class UnknownSubaccountException
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Exception
+ * @package RoadBunch\Mandrill\Exception
  */
 class UnknownSubaccountException extends \Exception
 {

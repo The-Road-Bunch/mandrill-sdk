@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests;
+namespace RoadBunch\Tests\Mandrill;
 
 
-use DZMC\Mandrill\HeaderTrait;
+use RoadBunch\Mandrill\HeaderTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class HeaderTraitTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests
+ * @package RoadBunch\Tests\Mandrill
  *
  * @group unit
  */

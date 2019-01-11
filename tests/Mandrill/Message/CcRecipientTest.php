@@ -9,33 +9,33 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message;
+namespace RoadBunch\Tests\Mandrill\Message;
 
-use DZMC\Mandrill\Message\ToRecipient;
-use DZMC\Mandrill\Message\Recipient;
-use DZMC\Mandrill\Message\RecipientBuilderInterface;
+use RoadBunch\Mandrill\Message\CcRecipient;
+use RoadBunch\Mandrill\Message\Recipient;
+use RoadBunch\Mandrill\Message\RecipientBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
 
 /**
- * Class ToRecipientTest
+ * Class CcRecipientTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message
+ * @package RoadBunch\Tests\Mandrill\Message
  *
  * @group unit
  * @group message
  * @group recipient
  */
-class ToRecipientTest extends TestCase
+class CcRecipientTest extends TestCase
 {
-    public function testCreateToRecipient()
+    public function testCreateCcRecipient()
     {
         /** @var Recipient|RecipientBuilderInterface $recipient */
         $email     = 'test@example.com';
-        $recipient = new ToRecipient($email);
+        $recipient = new CcRecipient($email);
 
         $this->assertInstanceOf(Recipient::class, $recipient);
-        $this->assertEquals('to', $recipient->getType());
+        $this->assertEquals('cc', $recipient->getType());
     }
 }

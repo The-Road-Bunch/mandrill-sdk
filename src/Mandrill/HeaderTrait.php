@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill;
+namespace RoadBunch\Mandrill;
 
 /**
  * Trait HeaderTrait
  *
- * @package DZMC\Mandrill
+ * @package RoadBunch\Mandrill
  */
 trait HeaderTrait
 {

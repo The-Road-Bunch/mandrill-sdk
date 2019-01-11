@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Integration;
+namespace RoadBunch\Tests\Mandrill\Integration;
 
-use DZMC\Mandrill\Message\Message;
-use DZMC\Mandrill\Message\MessageDispatcherInterface;
-use DZMC\Mandrill\Message\Status;
+use RoadBunch\Mandrill\Message\Message;
+use RoadBunch\Mandrill\Message\MessageDispatcherInterface;
+use RoadBunch\Mandrill\Message\Status;
 
 
 /**
  * Class MessageTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Integration
+ * @package RoadBunch\Tests\Mandrill\Integration
  *
  * @group   integration
  * @group   message
@@ -65,7 +65,7 @@ class MessageIntegrationTest extends MandrillTestCase
 
     /**
      * @return Message
-     * @throws \DZMC\Mandrill\Exception\ValidationException
+     * @throws \RoadBunch\Mandrill\Exception\ValidationException
      */
     private function createGenericMessage(): Message
     {

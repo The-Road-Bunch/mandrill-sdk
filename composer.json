@@ -11,12 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "DZMC\\Mandrill\\": "src/Mandrill"
+            "RoadBunch\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DZMC\\Mandrill\\Tests\\": "tests"
+            "RoadBunch\\Tests\\": "tests/"
         }
     },
     "require": {

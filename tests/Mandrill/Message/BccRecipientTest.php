@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message;
+namespace RoadBunch\Tests\Mandrill\Message;
 
-use DZMC\Mandrill\Message\BccRecipient;
-use DZMC\Mandrill\Message\Recipient;
-use DZMC\Mandrill\Message\RecipientBuilderInterface;
+use RoadBunch\Mandrill\Message\BccRecipient;
+use RoadBunch\Mandrill\Message\Recipient;
+use RoadBunch\Mandrill\Message\RecipientBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
 
@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  * Class BccRecipientTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message
+ * @package RoadBunch\Tests\Mandrill\Message
  *
  * @group unit
  * @group message

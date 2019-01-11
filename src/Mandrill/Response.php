@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill;
+namespace RoadBunch\Mandrill;
 
 
 /**
  * Class Response
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill
+ * @package RoadBunch\Mandrill
  */
 class Response
 {

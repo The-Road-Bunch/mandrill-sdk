@@ -3,7 +3,7 @@
 ```php
 <?php
 
-use DZMC\Mandrill as SDK;
+use RoadBunch\Mandrill as SDK;
 
 // get the message dispatcher
 $dispatcher = (new SDK\DispatcherFactory('your_api_key'))->createMessageDispatcher();

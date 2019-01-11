@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Message;
+namespace RoadBunch\Mandrill\Message;
 
-use DZMC\Mandrill\Exception\ValidationException;
+use RoadBunch\Mandrill\Exception\ValidationException;
 
 
 /**
  * Class Message
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill
+ * @package RoadBunch\Mandrill
  */
 interface MessageInterface
 {

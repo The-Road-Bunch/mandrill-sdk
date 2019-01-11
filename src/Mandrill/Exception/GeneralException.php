@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Exception;
+namespace RoadBunch\Mandrill\Exception;
 
 
 /**
@@ -18,7 +18,7 @@ namespace DZMC\Mandrill\Exception;
  * An unexpected error occurred processing the request. Mandrill developers will be notified.
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Exception
+ * @package RoadBunch\Mandrill\Exception
  */
 class GeneralException extends \Exception
 {

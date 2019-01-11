@@ -9,22 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message;
+namespace RoadBunch\Tests\Mandrill\Message;
 
 
-use DZMC\Mandrill\Exception\ValidationException;
-use DZMC\Mandrill\Message\BccRecipient;
-use DZMC\Mandrill\Message\CcRecipient;
-use DZMC\Mandrill\Message\Message;
-use DZMC\Mandrill\Message\RecipientBuilderInterface;
-use DZMC\Mandrill\Message\ToRecipient;
+use RoadBunch\Mandrill\Exception\ValidationException;
+use RoadBunch\Mandrill\Message\BccRecipient;
+use RoadBunch\Mandrill\Message\CcRecipient;
+use RoadBunch\Mandrill\Message\Message;
+use RoadBunch\Mandrill\Message\RecipientBuilderInterface;
+use RoadBunch\Mandrill\Message\ToRecipient;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class MessageTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests
+ * @package RoadBunch\Tests\Mandrill
  *
  * @group   unit
  * @group   message

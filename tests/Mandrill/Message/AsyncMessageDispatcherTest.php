@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message;
+namespace RoadBunch\Tests\Mandrill\Message;
 
-use DZMC\Mandrill\Message\AsyncDispatcher;
-use DZMC\Mandrill\Message\Message;
-use DZMC\Mandrill\Tests\Mock\MessagesSpy;
+use RoadBunch\Mandrill\Message\AsyncDispatcher;
+use RoadBunch\Mandrill\Message\Message;
+use RoadBunch\Tests\Mandrill\Mock\MessagesSpy;
 use PHPUnit\Framework\TestCase;
 
 
@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  * Class AsyncMessageDispatcherTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message
+ * @package RoadBunch\Tests\Mandrill\Message
  *
  * @group unit
  * @group message

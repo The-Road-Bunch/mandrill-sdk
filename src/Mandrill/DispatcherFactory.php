@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill;
+namespace RoadBunch\Mandrill;
 
-use DZMC\Mandrill\Message as Message;
+use RoadBunch\Mandrill\Message as Message;
 
 
 /**
  * Class DispatcherFactory
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill
+ * @package RoadBunch\Mandrill
  */
 class DispatcherFactory
 {

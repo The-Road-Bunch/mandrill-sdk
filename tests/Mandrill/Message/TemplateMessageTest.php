@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message;
+namespace RoadBunch\Tests\Mandrill\Message;
 
-use DZMC\Mandrill\Message\Message;
-use DZMC\Mandrill\Message\Template;
-use DZMC\Mandrill\Message\TemplateMessage;
+use RoadBunch\Mandrill\Message\Message;
+use RoadBunch\Mandrill\Message\Template;
+use RoadBunch\Mandrill\Message\TemplateMessage;
 use PHPUnit\Framework\TestCase;
 
 
@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
  * Class TemplateMessageTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message
+ * @package RoadBunch\Tests\Mandrill\Message
  */
 class TemplateMessageTest extends TestCase
 {

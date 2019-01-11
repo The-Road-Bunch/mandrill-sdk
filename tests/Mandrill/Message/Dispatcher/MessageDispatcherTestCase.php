@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message\Dispatcher;
+namespace RoadBunch\Tests\Mandrill\Message\Dispatcher;
 
-use DZMC\Mandrill\Message as Message;
-use DZMC\Mandrill\Tests\Mock\MessagesSpy;
+use RoadBunch\Mandrill\Message as Message;
+use RoadBunch\Tests\Mandrill\Mock\MessagesSpy;
 use PHPUnit\Framework\TestCase;
 
 
@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  * Class MessageDispatcherTestCase
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message\Dispatcher
+ * @package RoadBunch\Tests\Mandrill\Message\Dispatcher
  */
 class MessageDispatcherTestCase extends TestCase
 {

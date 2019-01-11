@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Integration;
+namespace RoadBunch\Tests\Mandrill\Integration;
 
-use DZMC\Mandrill\DispatcherFactory;
+use RoadBunch\Mandrill\DispatcherFactory;
 use PHPUnit\Framework\TestCase;
 
 
@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  * Class MandrillTestCase
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Integration
+ * @package RoadBunch\Tests\Mandrill\Integration
  *
  * @group integration
  * @group message

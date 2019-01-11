@@ -25,7 +25,7 @@ _An OOP library for interfacing with Mandrill's API_
 <?php
 
 // optional alias for cleanliness/readability
-use DZMC\Mandrill as SDK;
+use RoadBunch\Mandrill as SDK;
 
 // create a dispatcher factory
 $factory = new SDK\DispatcherFactory('your_mandrill_api_key');
@@ -57,13 +57,13 @@ $response = $dispatcher->send($message);
 example response array
 ```
 array:2 [
-  0 => DZMC\Mandrill\Message\SendResponse {#22
+  0 => RoadBunch\Mandrill\Message\SendResponse {#22
     +id: "118a7d900f5c48ec9a91cf55c63a7d97"
     +email: "recipient@example.com"
     +status: "sent"
     +rejectReason: null
   }
-  1 => DZMC\Mandrill\Message\SendResponse {#23
+  1 => RoadBunch\Mandrill\Message\SendResponse {#23
     +id: "e19fb3f794ab4b99bd2a6a8ce4396a3f"
     +email: "cc_recipient@example.com"
     +status: "sent"

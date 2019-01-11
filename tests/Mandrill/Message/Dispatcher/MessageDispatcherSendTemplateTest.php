@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message\Dispatcher;
+namespace RoadBunch\Tests\Mandrill\Message\Dispatcher;
 
-use DZMC\Mandrill\Message as Message;
-use DZMC\Mandrill\Message\Template;
-use DZMC\Mandrill\Tests\Mock\MessagesSpy;
-use DZMC\Mandrill\Tests\Mock\NoResponseMessagesMock;
+use RoadBunch\Mandrill\Message as Message;
+use RoadBunch\Mandrill\Message\Template;
+use RoadBunch\Tests\Mandrill\Mock\MessagesSpy;
+use RoadBunch\Tests\Mandrill\Mock\NoResponseMessagesMock;
 
 /**
  * Class MessgeDispatcherSendTemplateTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message\Dispatcher
+ * @package RoadBunch\Tests\Mandrill\Message\Dispatcher
  *
  * @group   unit
  * @group   message

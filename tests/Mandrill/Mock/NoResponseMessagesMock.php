@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Mock;
+namespace RoadBunch\Tests\Mandrill\Mock;
 
 
 /**
  * Class NoResponseMessagesSpy
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Mock
+ * @package RoadBunch\Tests\Mandrill\Mock
  */
 class NoResponseMessagesMock extends MessagesSpy
 {

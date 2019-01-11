@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Tests\Message;
+namespace RoadBunch\Tests\Mandrill\Message;
 
-use DZMC\Mandrill\Exception\ValidationException;
-use DZMC\Mandrill\Message\Recipient;
+use RoadBunch\Mandrill\Exception\ValidationException;
+use RoadBunch\Mandrill\Message\Recipient;
 use PHPUnit\Framework\TestCase;
 
 
@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  * Class RecipientTest
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Tests\Message
+ * @package RoadBunch\Tests\Mandrill\Message
  *
  * @group   unit
  * @group   message

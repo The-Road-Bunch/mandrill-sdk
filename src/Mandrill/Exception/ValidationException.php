@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace DZMC\Mandrill\Exception;
+namespace RoadBunch\Mandrill\Exception;
 
 /**
  * Class ValidationException
  *
  * @author  Dan McAdams
- * @package DZMC\Mandrill\Exception
+ * @package RoadBunch\Mandrill\Exception
  */
 class ValidationException extends \Exception
 {
