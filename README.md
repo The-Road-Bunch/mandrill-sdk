@@ -1,9 +1,7 @@
-# theroadbunch/mandrill-sdk
+# theroadbunch/mandrill-sdk [![build status](https://scrutinizer-ci.com/g/The-Road-Bunch/mandrill-sdk/badges/build.png?b=master)](https://scrutinizer-ci.com/g/theroadbunch/mandrill-sdk/)
 _An OOP library for interfacing with Mandrill's API_
 
-[![build status](https://scrutinizer-ci.com/g/theroadbunch/mandrill-sdk/badges/build.png?b=master)](https://scrutinizer-ci.com/g/theroadbunch/mandrill-sdk/)
-[![scrutinzer quality score](https://scrutinizer-ci.com/g/theroadbunch/mandrill-sdk/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/theroadbunch/mandrill-sdk/)
-![Code Coverage](https://scrutinizer-ci.com/g/theroadbunch/mandrill-sdk/badges/coverage.png?b=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/theroadbunch/mandrill-sdk.svg)](https://packagist.org/packages/theroadbunch/domain-validator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Contents
