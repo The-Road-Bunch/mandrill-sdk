@@ -1,4 +1,4 @@
-# theroadbunch/mandrill-sdk [![build status](https://scrutinizer-ci.com/g/The-Road-Bunch/mandrill-sdk/badges/build.png?b=master)](https://scrutinizer-ci.com/g/theroadbunch/mandrill-sdk/)
+# theroadbunch/mandrill-sdk [![build status](https://scrutinizer-ci.com/g/The-Road-Bunch/mandrill-sdk/badges/build.png?b=master)](https://scrutinizer-ci.com/g/The-Road-Bunch/mandrill-sdk/)
 _An OOP library for interfacing with Mandrill's API_
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/theroadbunch/mandrill-sdk.svg)](https://packagist.org/packages/theroadbunch/domain-validator)
